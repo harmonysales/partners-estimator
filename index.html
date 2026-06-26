@@ -10,509 +10,243 @@
 :root {
   --primary: #1a4fd6;
   --primary-light: #3d6ee8;
-  --primary-dark: #1340b8;
-  --primary-bg: #eef2fd;
-  --accent: #0ea5e9;
   --bg: #f0f4fb;
   --white: #ffffff;
-  --surface: #ffffff;
-  --border: #d6e0f5;
+  --border: #c8d4f0;
   --border2: #e8eef9;
   --text: #1a2340;
   --text2: #4a5578;
   --muted: #8b96b8;
-  --success: #10b981;
-  --warning: #f59e0b;
   --error: #ef4444;
-  --gold: #d4a017;
   --shadow: 0 2px 12px rgba(26,79,214,0.08);
-  --shadow-lg: 0 8px 32px rgba(26,79,214,0.13);
+  --header-bg: #1a4fd6;
+  --subheader-bg: #4a6fd6;
+  --row-bg: #f8faff;
+  --highlight: #fff3cd;
+  --highlight2: #e8f4fd;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: 'Noto Sans KR', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-}
+body { font-family: 'Noto Sans KR', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 13px; }
 
 /* ── 로그인 ── */
 #login-screen {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
   background: linear-gradient(135deg, #1a4fd6 0%, #0ea5e9 100%);
 }
 .login-box {
-  background: white;
-  border-radius: 20px;
-  padding: 52px 44px;
-  width: 380px;
-  box-shadow: 0 24px 64px rgba(0,0,0,0.15);
-  text-align: center;
+  background: white; border-radius: 20px; padding: 52px 44px; width: 380px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.15); text-align: center;
 }
-.login-logo {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--primary);
-  letter-spacing: 1px;
-  margin-bottom: 6px;
-}
-.login-box h1 {
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--text);
-  margin-bottom: 6px;
-}
+.login-logo { font-size: 11px; font-weight: 800; color: var(--primary); letter-spacing: 1px; margin-bottom: 6px; }
+.login-box h1 { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
 .login-box p { color: var(--muted); font-size: 13px; margin-bottom: 32px; }
 .login-box input {
-  width: 100%;
-  padding: 13px 16px;
-  border: 2px solid var(--border);
-  border-radius: 10px;
-  font-size: 15px;
-  font-family: inherit;
-  color: var(--text);
-  outline: none;
-  margin-bottom: 14px;
-  transition: border-color 0.2s;
-  letter-spacing: 3px;
+  width: 100%; padding: 13px 16px; border: 2px solid var(--border); border-radius: 10px;
+  font-size: 15px; font-family: inherit; color: var(--text); outline: none; margin-bottom: 14px;
+  transition: border-color 0.2s; letter-spacing: 3px;
 }
 .login-box input:focus { border-color: var(--primary); }
 .login-box button {
-  width: 100%;
-  padding: 14px;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
-  border: none;
-  border-radius: 10px;
-  color: white;
-  font-size: 15px;
-  font-weight: 700;
-  font-family: inherit;
-  cursor: pointer;
-  transition: opacity 0.2s, transform 0.1s;
+  width: 100%; padding: 14px; background: linear-gradient(135deg, #1a4fd6, #0ea5e9);
+  border: none; border-radius: 10px; color: white; font-size: 15px; font-weight: 700;
+  font-family: inherit; cursor: pointer; transition: opacity 0.2s;
 }
-.login-box button:hover { opacity: 0.92; transform: translateY(-1px); }
+.login-box button:hover { opacity: 0.92; }
 #login-error { color: var(--error); font-size: 13px; margin-top: 10px; min-height: 18px; }
 
-/* ── 앱 레이아웃 ── */
+/* ── 앱 ── */
 #app { display: none; flex-direction: column; min-height: 100vh; }
 
 header {
-  background: white;
-  border-bottom: 1px solid var(--border2);
-  padding: 0 32px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  box-shadow: var(--shadow);
+  background: white; border-bottom: 1px solid var(--border2); padding: 0 32px;
+  height: 56px; display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow);
 }
 .header-left { display: flex; align-items: center; gap: 12px; }
-.header-logo {
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--primary);
-  letter-spacing: 0.5px;
-  line-height: 1.2;
-}
+.header-logo { font-size: 11px; font-weight: 800; color: var(--primary); letter-spacing: 0.5px; line-height: 1.2; }
 .header-divider { width: 1px; height: 20px; background: var(--border); }
 .header-title { font-size: 14px; font-weight: 600; color: var(--text2); }
 .logout-btn {
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--muted);
-  padding: 6px 14px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-family: inherit;
-  cursor: pointer;
-  transition: all 0.2s;
+  background: none; border: 1px solid var(--border); color: var(--muted);
+  padding: 6px 14px; border-radius: 6px; font-size: 12px; font-family: inherit; cursor: pointer;
 }
 .logout-btn:hover { border-color: var(--error); color: var(--error); }
 
-/* ── 메인 그리드 ── */
-.main-content {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 28px 24px;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 340px 1fr;
-  gap: 20px;
-  align-items: start;
-}
+.page-wrap { max-width: 1300px; margin: 0 auto; padding: 24px 20px; }
 
-/* ── 패널 공통 ── */
-.panel {
-  background: white;
-  border: 1px solid var(--border2);
-  border-radius: 14px;
-  box-shadow: var(--shadow);
-  overflow: hidden;
+/* ── 상단 입력 영역 ── */
+.input-section {
+  background: white; border: 1px solid var(--border2); border-radius: 12px;
+  box-shadow: var(--shadow); margin-bottom: 20px; overflow: hidden;
 }
-.panel-header {
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--border2);
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.input-section-title {
+  background: var(--primary); color: white; padding: 10px 18px;
+  font-size: 13px; font-weight: 700; text-align: center;
 }
-.panel-header-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--primary);
+.input-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0;
 }
-.panel-header h2 {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text);
-  letter-spacing: 0.3px;
+.input-block { padding: 16px 18px; border-right: 1px solid var(--border2); }
+.input-block:last-child { border-right: none; }
+.input-block-title {
+  font-size: 11px; font-weight: 700; color: var(--primary); margin-bottom: 12px;
+  padding-bottom: 6px; border-bottom: 2px solid var(--primary); letter-spacing: 0.5px;
 }
-.panel-body { padding: 20px; }
+.input-row { display: flex; align-items: center; margin-bottom: 9px; gap: 8px; }
+.input-row label { font-size: 12px; color: var(--text2); font-weight: 500; min-width: 72px; flex-shrink: 0; }
+.input-row select, .input-row input {
+  flex: 1; padding: 6px 8px; border: 1px solid var(--border); border-radius: 6px;
+  font-size: 12px; font-family: inherit; color: var(--text); outline: none;
+  background: white; transition: border-color 0.2s;
+}
+.input-row select:focus, .input-row input:focus { border-color: var(--primary); }
+.input-row select:disabled { background: #f5f7ff; color: var(--muted); }
+.input-row .val-display {
+  flex: 1; padding: 6px 8px; font-size: 12px; color: var(--text); font-weight: 600;
+  background: #f8faff; border: 1px solid var(--border2); border-radius: 6px; min-height: 30px;
+}
+.input-row .val-display.empty { color: var(--muted); font-weight: 400; }
 
-/* ── 섹션 구분 ── */
-.section-label {
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--primary);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-  margin-top: 18px;
-  padding-bottom: 6px;
-  border-bottom: 1px solid var(--primary-bg);
-}
-.section-label:first-child { margin-top: 0; }
-
-/* ── 폼 필드 ── */
-.field { margin-bottom: 12px; }
-.field label {
-  display: block;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--text2);
-  margin-bottom: 5px;
-}
-.field select, .field input {
-  width: 100%;
-  padding: 9px 11px;
-  border: 1.5px solid var(--border);
-  border-radius: 8px;
-  font-size: 13px;
-  font-family: inherit;
-  color: var(--text);
-  background: white;
-  outline: none;
-  transition: border-color 0.2s;
-  -webkit-appearance: none;
-}
-.field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238b96b8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 30px; }
-.field select:focus, .field input:focus { border-color: var(--primary); }
-.field select:disabled { background-color: #f8faff; color: var(--muted); }
-
-/* 읽기전용 표시 필드 */
-.info-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 7px 0;
-  border-bottom: 1px solid var(--border2);
-  font-size: 12px;
-}
-.info-row:last-child { border-bottom: none; }
-.info-row .key { color: var(--text2); font-weight: 500; }
-.info-row .val { font-weight: 600; color: var(--text); }
-.info-row .val.empty { color: var(--muted); font-weight: 400; }
-
-/* 보증금/선납금 선택 */
-.rate-group { display: flex; gap: 6px; }
+/* 보증금율 버튼 */
+.rate-btn-group { display: flex; gap: 5px; flex: 1; }
 .rate-btn {
-  flex: 1;
-  padding: 8px 4px;
-  border: 1.5px solid var(--border);
-  border-radius: 7px;
-  background: white;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text2);
-  cursor: pointer;
-  transition: all 0.15s;
-  font-family: inherit;
-  text-align: center;
+  flex: 1; padding: 6px 4px; border: 1px solid var(--border); border-radius: 6px;
+  background: white; font-size: 12px; font-weight: 600; color: var(--text2);
+  cursor: pointer; text-align: center; font-family: inherit; transition: all 0.15s;
 }
-.rate-btn:hover { border-color: var(--primary-light); color: var(--primary); }
+.rate-btn:hover { border-color: var(--primary); color: var(--primary); }
 .rate-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
 
-.rate-slider-wrap { margin-top: 8px; }
-.rate-slider {
-  width: 100%;
-  -webkit-appearance: none;
-  height: 4px;
-  border-radius: 2px;
-  background: var(--border);
-  outline: none;
-  margin: 6px 0;
+/* 선수금율 슬라이더 */
+.slider-wrap { flex: 1; }
+.slider-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.slider-top .sv { font-size: 14px; font-weight: 800; color: var(--primary); }
+input[type=range] {
+  width: 100%; -webkit-appearance: none; height: 4px; border-radius: 2px;
+  background: var(--border); outline: none;
 }
-.rate-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 18px; height: 18px;
-  border-radius: 50%;
-  background: var(--primary);
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(26,79,214,0.3);
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%;
+  background: var(--primary); cursor: pointer; box-shadow: 0 2px 6px rgba(26,79,214,0.3);
 }
-.slider-labels {
-  display: flex;
-  justify-content: space-between;
-  font-size: 10px;
-  color: var(--muted);
-}
-.slider-val {
-  text-align: center;
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--primary);
-  margin-bottom: 4px;
-}
+.slider-labels { display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); margin-top: 3px; }
 
-/* ── 결과 영역 ── */
-.result-area { display: flex; flex-direction: column; gap: 16px; }
-
-/* 비교 카드 */
-.compare-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-.compare-card {
-  background: white;
-  border: 1px solid var(--border2);
-  border-radius: 14px;
-  box-shadow: var(--shadow);
-  overflow: hidden;
-}
-.compare-card.highlight { border-color: var(--primary); box-shadow: 0 4px 20px rgba(26,79,214,0.15); }
-.compare-card-header {
-  padding: 14px 20px;
-  border-bottom: 1px solid var(--border2);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.compare-card.highlight .compare-card-header { background: var(--primary); }
-.compare-card-header .c-title { font-size: 13px; font-weight: 700; color: var(--text); }
-.compare-card.highlight .compare-card-header .c-title { color: white; }
-.compare-badge {
-  font-size: 10px;
-  font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 20px;
-  background: var(--primary-bg);
-  color: var(--primary);
-}
-.compare-card.highlight .compare-badge { background: rgba(255,255,255,0.2); color: white; }
-
-.compare-body { padding: 20px; }
-.monthly-amount {
-  text-align: center;
-  margin-bottom: 16px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--border2);
-}
-.monthly-label { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
-.monthly-num {
-  font-size: 28px;
-  font-weight: 800;
-  color: var(--text);
-}
-.compare-card.highlight .monthly-num { color: var(--primary); }
-.monthly-unit { font-size: 13px; font-weight: 500; color: var(--muted); }
-.monthly-sub { font-size: 11px; color: var(--muted); margin-top: 3px; }
-
-.breakdown-list { display: flex; flex-direction: column; gap: 0; }
-.bl-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 7px 0;
-  font-size: 12px;
-  border-bottom: 1px solid var(--border2);
-}
-.bl-row:last-child { border-bottom: none; }
-.bl-row .bk { color: var(--text2); }
-.bl-row .bv { font-weight: 600; color: var(--text); }
-.bl-row.total { padding: 10px 0; }
-.bl-row.total .bk { font-weight: 700; color: var(--text); }
-.bl-row.total .bv { font-weight: 800; color: var(--primary); font-size: 14px; }
-
-/* 빈 상태 */
-.empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 60px 20px;
-  color: var(--muted);
-  gap: 12px;
-  text-align: center;
-}
-.empty-state svg { opacity: 0.25; }
-.empty-state p { font-size: 13px; line-height: 1.6; }
-
-/* 견적서 버튼 */
-.print-btn-wrap { display: flex; justify-content: flex-end; }
-.print-btn {
-  padding: 11px 24px;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
-  border: none;
-  border-radius: 9px;
-  color: white;
-  font-size: 13px;
-  font-weight: 700;
-  font-family: inherit;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  transition: opacity 0.2s, transform 0.1s;
+/* ── 계산 버튼 ── */
+.calc-btn-wrap { padding: 14px 18px; border-top: 1px solid var(--border2); text-align: right; }
+.calc-btn {
+  padding: 10px 32px; background: linear-gradient(135deg, #1a4fd6, #0ea5e9);
+  border: none; border-radius: 8px; color: white; font-size: 13px; font-weight: 700;
+  font-family: inherit; cursor: pointer; transition: opacity 0.2s;
   box-shadow: 0 4px 14px rgba(26,79,214,0.3);
 }
-.print-btn:hover { opacity: 0.9; transform: translateY(-1px); }
-.print-btn:disabled { opacity: 0.4; cursor: default; transform: none; }
+.calc-btn:hover { opacity: 0.9; }
+.calc-btn:disabled { opacity: 0.4; cursor: default; }
 
-/* ── 견적서 인쇄 모달 ── */
+/* ── 결과 비교표 ── */
+#result-section { display: none; }
+
+.result-title {
+  text-align: center; font-size: 16px; font-weight: 800; color: var(--primary);
+  margin-bottom: 16px; padding: 12px;
+  background: white; border-radius: 10px; border: 1px solid var(--border2);
+  box-shadow: var(--shadow);
+}
+
+.compare-wrap {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;
+}
+
+.compare-panel {
+  background: white; border: 1px solid var(--border2); border-radius: 12px;
+  box-shadow: var(--shadow); overflow: hidden;
+}
+.compare-panel.highlight { border-color: var(--primary); box-shadow: 0 4px 20px rgba(26,79,214,0.15); }
+
+.cp-header {
+  background: var(--primary); color: white; padding: 10px 0;
+  text-align: center; font-size: 14px; font-weight: 800;
+}
+.compare-panel.highlight .cp-header { background: #0d3bb5; }
+
+/* 비교표 테이블 */
+.ct { width: 100%; border-collapse: collapse; font-size: 12px; }
+.ct th {
+  background: #3d5a8a; color: white; padding: 8px 10px;
+  text-align: center; font-weight: 600; font-size: 11px;
+}
+.ct th.main { background: var(--primary); }
+.ct td { padding: 7px 10px; border-bottom: 1px solid var(--border2); vertical-align: middle; }
+.ct td.label { background: #f0f4fb; font-weight: 600; color: var(--text2); width: 110px; padding-left: 12px; }
+.ct td.sub-label { background: #f8faff; color: var(--text2); padding-left: 24px; font-size: 11px; }
+.ct td.val { text-align: right; font-weight: 600; padding-right: 14px; }
+.ct td.center { text-align: center; }
+.ct tr.section-row td { background: #eef2fd; font-weight: 700; color: var(--primary); padding: 6px 10px; }
+.ct tr.total-row td { background: var(--primary); color: white; font-weight: 800; font-size: 13px; padding: 10px 14px; }
+.ct tr.highlight-row td { background: #fff3cd; font-weight: 700; }
+.ct tr.monthly-row td { background: #e8f4fd; font-weight: 700; color: var(--primary); }
+.ct tr.red-box td { background: #fff0f0; font-weight: 800; color: #c0392b; border: 2px solid #e74c3c; font-size: 13px; }
+
+/* 견적서 버튼 */
+.print-btn-wrap { display: flex; justify-content: flex-end; margin-bottom: 16px; }
+.print-btn {
+  padding: 10px 24px; background: linear-gradient(135deg, #1a4fd6, #0ea5e9);
+  border: none; border-radius: 8px; color: white; font-size: 13px; font-weight: 700;
+  font-family: inherit; cursor: pointer; box-shadow: 0 4px 14px rgba(26,79,214,0.3);
+  display: flex; align-items: center; gap: 7px; transition: opacity 0.2s;
+}
+.print-btn:hover { opacity: 0.9; }
+
+/* ── 견적서 모달 ── */
 .modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  z-index: 1000;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+  z-index: 1000; align-items: center; justify-content: center; padding: 20px;
 }
 .modal-overlay.open { display: flex; }
 .modal-box {
-  background: white;
-  border-radius: 16px;
-  width: 100%;
-  max-width: 760px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 24px 64px rgba(0,0,0,0.2);
+  background: white; border-radius: 16px; width: 100%; max-width: 800px;
+  max-height: 90vh; overflow-y: auto; box-shadow: 0 24px 64px rgba(0,0,0,0.2);
 }
 .modal-actions {
-  padding: 16px 24px;
-  border-bottom: 1px solid var(--border2);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  padding: 14px 24px; border-bottom: 1px solid var(--border2);
+  display: flex; justify-content: space-between; align-items: center;
+  position: sticky; top: 0; background: white; z-index: 10;
 }
 .modal-actions h3 { font-size: 14px; font-weight: 700; }
 .modal-btns { display: flex; gap: 8px; }
 .btn-close {
-  padding: 8px 16px;
-  border: 1px solid var(--border);
-  border-radius: 7px;
-  background: white;
-  font-size: 13px;
-  font-family: inherit;
-  cursor: pointer;
-  color: var(--text2);
+  padding: 7px 16px; border: 1px solid var(--border); border-radius: 7px;
+  background: white; font-size: 13px; font-family: inherit; cursor: pointer; color: var(--text2);
 }
 .btn-print {
-  padding: 8px 20px;
-  background: var(--primary);
-  border: none;
-  border-radius: 7px;
-  color: white;
-  font-size: 13px;
-  font-weight: 700;
-  font-family: inherit;
-  cursor: pointer;
+  padding: 7px 20px; background: var(--primary); border: none; border-radius: 7px;
+  color: white; font-size: 13px; font-weight: 700; font-family: inherit; cursor: pointer;
 }
 
 /* ── 견적서 본문 ── */
-.quote-doc {
-  padding: 32px 40px;
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 12px;
-  color: #1a2340;
-}
-.quote-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-.quote-company { font-size: 11px; font-weight: 800; color: var(--primary); line-height: 1.4; }
-.quote-title { font-size: 22px; font-weight: 800; text-align: center; flex: 1; }
-.quote-meta { font-size: 11px; line-height: 2; }
-.quote-meta table { border-collapse: collapse; }
-.quote-meta td { padding: 1px 6px; border: 1px solid #ccc; }
+.quote-doc { padding: 32px 36px; font-size: 11px; color: #1a2340; }
+.quote-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 20px; }
+.quote-company { font-size: 10px; font-weight: 800; color: var(--primary); line-height: 1.6; }
+.quote-title { font-size: 22px; font-weight: 800; flex: 1; text-align: center; padding-top: 4px; }
+.quote-meta table { border-collapse: collapse; font-size: 10px; }
+.quote-meta td { padding: 3px 8px; border: 1px solid #ccc; }
 .quote-meta td:first-child { background: #eef2fd; font-weight: 600; width: 60px; }
-
-.quote-greeting { font-size: 13px; font-weight: 700; margin-bottom: 16px; }
-
-.quote-vehicle {
-  display: grid;
-  grid-template-columns: 160px 1fr;
-  gap: 0;
-  border: 1px solid #ccc;
-  margin-bottom: 16px;
-}
-.quote-img-box {
-  border-right: 1px solid #ccc;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-  background: #f8faff;
-  font-size: 11px;
-  color: var(--muted);
-  text-align: center;
-  min-height: 120px;
-}
-.quote-vehicle-info table { width: 100%; border-collapse: collapse; }
-.quote-vehicle-info td { padding: 5px 10px; border-bottom: 1px solid #eee; font-size: 11px; }
-.quote-vehicle-info td:first-child { background: #eef2fd; font-weight: 600; width: 80px; color: #4a5578; }
-.quote-vehicle-info tr:last-child td { border-bottom: none; }
-
-.quote-section-title {
-  font-size: 12px;
-  font-weight: 800;
-  margin: 14px 0 8px;
-  padding-left: 6px;
-  border-left: 3px solid var(--primary);
-}
-
-.quote-table { width: 100%; border-collapse: collapse; font-size: 11px; }
-.quote-table th {
-  background: #1a4fd6;
-  color: white;
-  padding: 7px 10px;
-  font-weight: 600;
-  text-align: center;
-}
-.quote-table td { padding: 6px 10px; border: 1px solid #ddd; text-align: center; }
-.quote-table td.left { text-align: left; }
-.quote-table tr.sub td { background: #f8faff; }
-.quote-table tr.total-row td { background: #1a4fd6; color: white; font-weight: 800; font-size: 13px; }
-.quote-table tr.highlight-row td { background: #fff3cd; font-weight: 700; }
-
-.quote-footer {
-  margin-top: 20px;
-  font-size: 10px;
-  color: var(--muted);
-  text-align: center;
-  border-top: 1px solid var(--border2);
-  padding-top: 12px;
-}
+.quote-greeting { font-size: 12px; font-weight: 700; margin-bottom: 14px; }
+.quote-vehicle { display: grid; grid-template-columns: 160px 1fr; border: 1px solid #ccc; margin-bottom: 16px; }
+.quote-img { display: flex; align-items: center; justify-content: center; border-right: 1px solid #ccc; background: #f8faff; font-size: 10px; color: var(--muted); text-align: center; padding: 16px; min-height: 120px; }
+.quote-vinfo table { width: 100%; border-collapse: collapse; }
+.quote-vinfo td { padding: 4px 10px; border-bottom: 1px solid #eee; font-size: 10px; }
+.quote-vinfo td:first-child { background: #eef2fd; font-weight: 600; width: 70px; color: #4a5578; }
+.quote-vinfo tr:last-child td { border-bottom: none; }
+.quote-section { font-size: 11px; font-weight: 800; margin: 12px 0 8px; padding-left: 6px; border-left: 3px solid var(--primary); }
+.qt { width: 100%; border-collapse: collapse; font-size: 10px; }
+.qt th { background: var(--primary); color: white; padding: 6px 8px; text-align: center; font-weight: 600; }
+.qt td { padding: 5px 8px; border: 1px solid #ddd; text-align: center; }
+.qt td.left { text-align: left; padding-left: 12px; }
+.qt tr.sub td { background: #f8faff; }
+.qt tr.total-row td { background: var(--primary); color: white; font-weight: 800; font-size: 12px; }
+.qt tr.hl td { background: #fff3cd; font-weight: 700; }
+.quote-footer { margin-top: 20px; font-size: 9px; color: var(--muted); text-align: center; border-top: 1px solid var(--border2); padding-top: 10px; }
 
 @media print {
   body * { visibility: hidden; }
@@ -548,170 +282,212 @@ header {
     <button class="logout-btn" onclick="doLogout()">로그아웃</button>
   </header>
 
-  <div class="main-content">
-    <!-- 왼쪽 입력 패널 -->
-    <div style="display:flex;flex-direction:column;gap:16px;">
+  <div class="page-wrap">
 
-      <!-- 차량 정보 -->
-      <div class="panel">
-        <div class="panel-header">
-          <div class="panel-header-dot"></div>
-          <h2>차량 정보</h2>
-        </div>
-        <div class="panel-body">
-          <div class="section-label">차량 선택</div>
-          <div class="field">
+    <!-- 입력 섹션 -->
+    <div class="input-section">
+      <div class="input-section-title">[차량구입] 할부 vs 렌트/리스 비교</div>
+      <div class="input-grid">
+
+        <!-- 차량정보 -->
+        <div class="input-block">
+          <div class="input-block-title">□ 차량정보 (선택, 입력항목)</div>
+          <div class="input-row">
             <label>제조사</label>
             <select id="sel-brand" onchange="onBrandChange()">
-              <option value="">제조사 선택</option>
+              <option value="">선택</option>
             </select>
           </div>
-          <div class="field">
+          <div class="input-row">
             <label>모델</label>
             <select id="sel-series" onchange="onSeriesChange()" disabled>
-              <option value="">모델 선택</option>
+              <option value="">선택</option>
             </select>
           </div>
-          <div class="field">
+          <div class="input-row">
             <label>라인업</label>
             <select id="sel-lineup" onchange="onLineupChange()" disabled>
-              <option value="">라인업 선택</option>
+              <option value="">선택</option>
             </select>
           </div>
-
-          <div class="section-label">차량 세부 정보</div>
-          <div id="vehicle-detail">
-            <div class="info-row"><span class="key">차종</span><span class="val empty" id="d-type">-</span></div>
-            <div class="info-row"><span class="key">유종</span><span class="val empty" id="d-fuel">-</span></div>
-            <div class="info-row"><span class="key">배기량</span><span class="val empty" id="d-cc">-</span></div>
-            <div class="info-row"><span class="key">인승</span><span class="val empty" id="d-seats">-</span></div>
-            <div class="info-row"><span class="key">적재량</span><span class="val empty" id="d-load">-</span></div>
-          </div>
-
-          <div class="section-label">차량 등록 정보</div>
-          <div class="field">
+          <div class="input-row">
             <label>차량등록일</label>
             <input type="date" id="inp-regdate"/>
           </div>
-          <div class="field">
-            <label>주행거리 (km)</label>
-            <input type="number" id="inp-mileage" placeholder="예: 50000" min="0" step="1000"/>
+          <div class="input-row">
+            <label>주행거리</label>
+            <input type="number" id="inp-mileage" placeholder="km" min="0" step="1000"/>
           </div>
-          <div class="field">
-            <label>차량가격 (원)</label>
-            <input type="number" id="inp-price" placeholder="예: 40000000" min="0" step="100000"/>
+          <div class="input-row">
+            <label>차량가격</label>
+            <input type="number" id="inp-price" placeholder="원" min="0" step="100000"/>
+          </div>
+        </div>
+
+        <!-- 차량 세부정보 -->
+        <div class="input-block">
+          <div class="input-block-title">□ 차량 세부정보</div>
+          <div class="input-row">
+            <label>차종</label>
+            <div class="val-display empty" id="d-type">-</div>
+          </div>
+          <div class="input-row">
+            <label>유종</label>
+            <div class="val-display empty" id="d-fuel">-</div>
+          </div>
+          <div class="input-row">
+            <label>배기량</label>
+            <div class="val-display empty" id="d-cc">-</div>
+          </div>
+          <div class="input-row">
+            <label>적재량</label>
+            <div class="val-display empty" id="d-load">-</div>
+          </div>
+          <div class="input-row">
+            <label>인승</label>
+            <div class="val-display empty" id="d-seats">-</div>
+          </div>
+          <div class="input-row">
+            <label>과세여부</label>
+            <div class="val-display empty" id="d-tax">-</div>
+          </div>
+        </div>
+
+        <!-- 계약정보 -->
+        <div class="input-block">
+          <div class="input-block-title">□ 계약정보 (선택, 입력항목)</div>
+          <div class="input-row">
+            <label>보증금율</label>
+            <div class="rate-btn-group" id="deposit-group">
+              <button class="rate-btn" onclick="setDeposit(10,this)">10%</button>
+              <button class="rate-btn active" onclick="setDeposit(20,this)">20%</button>
+              <button class="rate-btn" onclick="setDeposit(30,this)">30%</button>
+            </div>
+          </div>
+          <div class="input-row" style="align-items:flex-start; margin-top:8px;">
+            <label style="padding-top:4px;">선수금율</label>
+            <div class="slider-wrap">
+              <div class="slider-top">
+                <span style="font-size:11px;color:var(--muted);">0% ~ 50%</span>
+                <span class="sv"><span id="prepay-val">10</span>%</span>
+              </div>
+              <input type="range" id="prepay-slider" min="0" max="50" step="5" value="10"
+                oninput="document.getElementById('prepay-val').textContent=this.value"/>
+              <div class="slider-labels"><span>0%</span><span>25%</span><span>50%</span></div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- 계약 정보 -->
-      <div class="panel">
-        <div class="panel-header">
-          <div class="panel-header-dot"></div>
-          <h2>계약 정보</h2>
-        </div>
-        <div class="panel-body">
-          <div class="section-label">보증금율</div>
-          <div class="rate-group" id="deposit-group">
-            <button class="rate-btn" onclick="setDeposit(10)">10%</button>
-            <button class="rate-btn active" onclick="setDeposit(15)">15%</button>
-            <button class="rate-btn" onclick="setDeposit(20)">20%</button>
-          </div>
-
-          <div class="section-label" style="margin-top:16px;">선수금율</div>
-          <div class="slider-val"><span id="prepay-val">10</span>%</div>
-          <div class="rate-slider-wrap">
-            <input type="range" class="rate-slider" id="prepay-slider" min="0" max="50" step="5" value="10"
-              oninput="document.getElementById('prepay-val').textContent=this.value"/>
-            <div class="slider-labels"><span>0%</span><span>25%</span><span>50%</span></div>
-          </div>
-
-          <div style="margin-top:20px;">
-            <button class="print-btn" id="calc-btn" onclick="doCalculate()" disabled style="width:100%;justify-content:center;">
-              <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 11h.01M12 11h.01M15 11h.01M4 19h16a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-              견적 계산하기
-            </button>
-          </div>
-        </div>
+      <div class="calc-btn-wrap">
+        <button class="calc-btn" id="calc-btn" onclick="doCalculate()" disabled>견적 계산하기</button>
       </div>
     </div>
 
-    <!-- 오른쪽 결과 -->
-    <div class="result-area">
-
-      <div id="empty-state" class="panel">
-        <div class="empty-state">
-          <svg width="56" height="56" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+    <!-- 결과 섹션 -->
+    <div id="result-section">
+      <div class="print-btn-wrap">
+        <button class="print-btn" onclick="openModal()">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
           </svg>
-          <p>제조사 → 모델 → 라인업을 선택하고<br/>계약 조건을 설정한 뒤 견적을 계산하세요</p>
-        </div>
+          견적서 뽑기
+        </button>
       </div>
 
-      <div id="result-wrap" style="display:none; flex-direction:column; gap:16px;">
+      <div class="compare-wrap">
 
-        <div class="panel">
-          <div class="panel-header" style="justify-content:space-between;">
-            <div style="display:flex;align-items:center;gap:8px;">
-              <div class="panel-header-dot"></div>
-              <h2 id="res-car-name">-</h2>
-            </div>
-            <button class="print-btn" id="print-btn" onclick="openModal()">
-              <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
-              견적서 뽑기
-            </button>
-          </div>
+        <!-- 할부 자가용 구입 -->
+        <div class="compare-panel">
+          <div class="cp-header">【할부】 자가용 구입</div>
+          <table class="ct">
+            <thead>
+              <tr>
+                <th class="main" style="width:110px;">구분</th>
+                <th>신용제한 고객</th>
+                <th>신용좋은 고객</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="monthly-row">
+                <td class="label">4년/5년 총 부담비</td>
+                <td class="val" id="g-total4-lim">-</td>
+                <td class="val" id="g-total4-gd">-</td>
+              </tr>
+              <tr class="highlight-row">
+                <td class="label">월 평균비용</td>
+                <td class="val" id="g-monthly-lim">-</td>
+                <td class="val" id="g-monthly-gd">-</td>
+              </tr>
+              <tr class="section-row"><td colspan="3">차량가격</td></tr>
+              <tr><td class="sub-label">차량가격</td><td class="val" id="g-price-lim">-</td><td class="val" id="g-price-gd">-</td></tr>
+              <tr><td class="sub-label">대여기간</td><td class="val center" id="g-months-lim">48</td><td class="val center" id="g-months-gd">60</td></tr>
+              <tr class="section-row"><td colspan="3">초기비용</td></tr>
+              <tr><td class="sub-label">인도금(10%)</td><td class="val" id="g-down-lim">-</td><td class="val" id="g-down-gd">-</td></tr>
+              <tr><td class="sub-label">딜러비</td><td class="val" id="g-dealer-lim">-</td><td class="val" id="g-dealer-gd">-</td></tr>
+              <tr><td class="sub-label">취득세</td><td class="val" id="g-acqtax-lim">-</td><td class="val" id="g-acqtax-gd">-</td></tr>
+              <tr><td class="sub-label">채권</td><td class="val" id="g-bond-lim">-</td><td class="val" id="g-bond-gd">-</td></tr>
+              <tr><td class="sub-label">대행료</td><td class="val" id="g-agency-lim">-</td><td class="val" id="g-agency-gd">-</td></tr>
+              <tr class="highlight-row"><td class="sub-label">합계</td><td class="val" id="g-init-lim">-</td><td class="val" id="g-init-gd">-</td></tr>
+              <tr class="section-row"><td colspan="3">유지비용</td></tr>
+              <tr><td class="sub-label">보험료</td><td class="val" id="g-ins-lim">-</td><td class="val" id="g-ins-gd">-</td></tr>
+              <tr><td class="sub-label">자동차세</td><td class="val" id="g-cartax-lim">-</td><td class="val" id="g-cartax-gd">-</td></tr>
+              <tr class="highlight-row"><td class="sub-label">합계</td><td class="val" id="g-maint-lim">-</td><td class="val" id="g-maint-gd">-</td></tr>
+              <tr class="section-row"><td colspan="3">할부금</td></tr>
+              <tr><td class="sub-label">금리</td><td class="val center" id="g-rate-lim">-</td><td class="val center" id="g-rate-gd">-</td></tr>
+              <tr class="highlight-row"><td class="sub-label">월할부금</td><td class="val" id="g-installment-lim">-</td><td class="val" id="g-installment-gd">-</td></tr>
+              <tr class="section-row"><td colspan="3"></td></tr>
+              <tr class="total-row"><td>총 할부금</td><td id="g-totalinstall-lim">-</td><td id="g-totalinstall-gd">-</td></tr>
+              <tr class="monthly-row"><td class="label">4년/5년 총 부담비</td><td class="val" id="g-grandtotal-lim">-</td><td class="val" id="g-grandtotal-gd">-</td></tr>
+              <tr class="highlight-row"><td class="label">월 평균비용</td><td class="val" id="g-avgmonthly-lim">-</td><td class="val" id="g-avgmonthly-gd">-</td></tr>
+            </tbody>
+          </table>
         </div>
 
-        <div class="compare-grid">
-          <!-- 일반 구매 -->
-          <div class="compare-card">
-            <div class="compare-card-header">
-              <span class="c-title">일반 자가용 구매</span>
-              <span class="compare-badge">비교</span>
-            </div>
-            <div class="compare-body">
-              <div class="monthly-amount">
-                <div class="monthly-label">월 예상 부담금</div>
-                <div class="monthly-num"><span id="g-monthly">-</span><span class="monthly-unit">원</span></div>
-                <div class="monthly-sub" id="g-monthly-sub">-</div>
-              </div>
-              <div class="breakdown-list">
-                <div class="bl-row"><span class="bk">차량가격</span><span class="bv" id="g-price">-</span></div>
-                <div class="bl-row"><span class="bk">취득세 (7%)</span><span class="bv" id="g-tax">-</span></div>
-                <div class="bl-row"><span class="bk">보험료 (연)</span><span class="bv" id="g-insurance">-</span></div>
-                <div class="bl-row"><span class="bk">자동차세 (연)</span><span class="bv" id="g-cartax">-</span></div>
-                <div class="bl-row total"><span class="bk">월 환산 비용</span><span class="bv" id="g-total">-</span></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 인수형 리스 -->
-          <div class="compare-card highlight">
-            <div class="compare-card-header">
-              <span class="c-title">하모니 인수형 리스</span>
-              <span class="compare-badge">추천</span>
-            </div>
-            <div class="compare-body">
-              <div class="monthly-amount">
-                <div class="monthly-label">월 실납입 대여료</div>
-                <div class="monthly-num"><span id="l-monthly">-</span><span class="monthly-unit">원</span></div>
-                <div class="monthly-sub" id="l-monthly-sub">-</div>
-              </div>
-              <div class="breakdown-list">
-                <div class="bl-row"><span class="bk">차량가격</span><span class="bv" id="l-price">-</span></div>
-                <div class="bl-row"><span class="bk">보증금 (<span id="l-deposit-rate">-</span>%)</span><span class="bv" id="l-deposit">-</span></div>
-                <div class="bl-row"><span class="bk">선수금 (<span id="l-prepay-rate">-</span>%)</span><span class="bv" id="l-prepay">-</span></div>
-                <div class="bl-row"><span class="bk">공급가액</span><span class="bv" id="l-supply">-</span></div>
-                <div class="bl-row"><span class="bk">부가세</span><span class="bv" id="l-vat">-</span></div>
-                <div class="bl-row"><span class="bk">월 대여료</span><span class="bv" id="l-base">-</span></div>
-                <div class="bl-row"><span class="bk">선납금 차감</span><span class="bv" id="l-prepay-deduct">-</span></div>
-                <div class="bl-row total"><span class="bk">월 실납입</span><span class="bv" id="l-total">-</span></div>
-              </div>
-            </div>
-          </div>
+        <!-- 하모니 리스 구입 -->
+        <div class="compare-panel highlight">
+          <div class="cp-header">【하모니】 리스구입</div>
+          <table class="ct">
+            <thead>
+              <tr>
+                <th class="main" style="width:110px;">구분</th>
+                <th>구독카</th>
+                <th>구독카</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="monthly-row">
+                <td class="label">4년/5년 총 부담비</td>
+                <td class="val" id="l-total4-a">-</td>
+                <td class="val" id="l-total4-b">-</td>
+              </tr>
+              <tr class="highlight-row">
+                <td class="label">월 평균비용</td>
+                <td class="val" id="l-monthly-a">-</td>
+                <td class="val" id="l-monthly-b">-</td>
+              </tr>
+              <tr class="section-row"><td colspan="3">차량가격</td></tr>
+              <tr><td class="sub-label">차량가격</td><td class="val" id="l-price-a">-</td><td class="val" id="l-price-b">-</td></tr>
+              <tr><td class="sub-label">대여기간</td><td class="val center" id="l-months-a">48</td><td class="val center" id="l-months-b">60</td></tr>
+              <tr class="section-row"><td colspan="3">초기비용</td></tr>
+              <tr><td class="sub-label">보증금</td><td class="val" id="l-deposit-a">-</td><td class="val" id="l-deposit-b">-</td></tr>
+              <tr><td class="sub-label">선수금</td><td class="val" id="l-prepay-a">-</td><td class="val" id="l-prepay-b">-</td></tr>
+              <tr class="highlight-row"><td class="sub-label">합계</td><td class="val" id="l-init-a">-</td><td class="val" id="l-init-b">-</td></tr>
+              <tr class="section-row"><td colspan="3"></td></tr>
+              <tr><td class="sub-label">차량형식</td><td class="val center">리스</td><td class="val center">리스</td></tr>
+              <tr><td class="sub-label">만기처리방식</td><td class="val center">구인월(리스형)</td><td class="val center">구인월(리스형)</td></tr>
+              <tr><td class="sub-label">만기인수금</td><td class="val" id="l-residual-a">-</td><td class="val" id="l-residual-b">-</td></tr>
+              <tr class="section-row"><td colspan="3"></td></tr>
+              <tr><td class="sub-label">월 대여료</td><td class="val" id="l-base-a">-</td><td class="val" id="l-base-b">-</td></tr>
+              <tr><td class="sub-label">선수금차감</td><td class="val" id="l-deduct-a">-</td><td class="val" id="l-deduct-b">-</td></tr>
+              <tr class="red-box"><td class="label">실납입 대여료</td><td class="val" id="l-final-a">-</td><td class="val" id="l-final-b">-</td></tr>
+              <tr class="section-row"><td colspan="3"></td></tr>
+              <tr class="total-row"><td>총 납입대여료</td><td id="l-totalpay-a">-</td><td id="l-totalpay-b">-</td></tr>
+              <tr class="monthly-row"><td class="label">4년/5년 총 부담비</td><td class="val" id="l-grandtotal-a">-</td><td class="val" id="l-grandtotal-b">-</td></tr>
+              <tr class="highlight-row"><td class="label">월 평균비용</td><td class="val" id="l-avgmonthly-a">-</td><td class="val" id="l-avgmonthly-b">-</td></tr>
+            </tbody>
+          </table>
         </div>
-
       </div>
     </div>
   </div>
@@ -727,22 +503,18 @@ header {
         <button class="btn-print" onclick="window.print()">🖨️ 인쇄</button>
       </div>
     </div>
-    <div class="quote-doc" id="quote-doc">
-      <!-- JS로 채워짐 -->
-    </div>
+    <div class="quote-doc" id="quote-doc"></div>
   </div>
 </div>
 
 <script>
 const WORKER_URL = "https://lease-estimator-api.sp7977.workers.dev";
-
 let token = sessionStorage.getItem("lease_token") || null;
 let allVehicles = [];
 let selectedVehicle = null;
-let depositRate = 15;
+let depositRate = 20;
 let calcResult = null;
 
-// 초기화
 window.onload = () => { if (token) showApp(); };
 document.getElementById("pw-input").addEventListener("keydown", e => { if (e.key==="Enter") doLogin(); });
 
@@ -753,14 +525,11 @@ async function doLogin() {
   if (!pw) { errEl.textContent = "비밀번호를 입력하세요."; return; }
   try {
     const res = await fetch(`${WORKER_URL}/api/login`, {
-      method:"POST", headers:{"Content-Type":"application/json"},
-      body: JSON.stringify({password: pw})
+      method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({password: pw})
     });
     const data = await res.json();
     if (data.success) {
-      token = data.token;
-      sessionStorage.setItem("lease_token", token);
-      showApp();
+      token = data.token; sessionStorage.setItem("lease_token", token); showApp();
     } else { errEl.textContent = data.message || "비밀번호가 틀렸습니다."; }
   } catch { errEl.textContent = "서버 연결에 실패했습니다."; }
 }
@@ -781,8 +550,7 @@ async function showApp() {
 async function loadVehicles() {
   try {
     const res = await fetch(`${WORKER_URL}/api/vehicles`, {
-      method:"POST", headers:{"Content-Type":"application/json"},
-      body: JSON.stringify({token})
+      method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({token})
     });
     const data = await res.json();
     if (!data.success) { doLogout(); return; }
@@ -799,7 +567,7 @@ function getUnique(arr, codeKey, nameKey) {
 
 function populateBrands() {
   const sel = document.getElementById("sel-brand");
-  sel.innerHTML = '<option value="">제조사 선택</option>';
+  sel.innerHTML = '<option value="">선택</option>';
   getUnique(allVehicles, "브랜드코드", "브랜드명").forEach(([code, name]) => {
     sel.innerHTML += `<option value="${code}">${name}</option>`;
   });
@@ -809,14 +577,12 @@ function onBrandChange() {
   const code = document.getElementById("sel-brand").value;
   const filtered = allVehicles.filter(v => v.브랜드코드 === code);
   const sel = document.getElementById("sel-series");
-  sel.innerHTML = '<option value="">모델 선택</option>';
+  sel.innerHTML = '<option value="">선택</option>';
   getUnique(filtered, "시리즈코드", "시리즈명").forEach(([c, n]) => {
     sel.innerHTML += `<option value="${c}">${n}</option>`;
   });
   sel.disabled = !code;
-  document.getElementById("sel-lineup").innerHTML = '<option value="">라인업 선택</option>';
-  document.getElementById("sel-lineup").disabled = true;
-  clearVehicleDetail(); updateCalcBtn();
+  resetLineup(); clearDetail(); updateBtn();
 }
 
 function onSeriesChange() {
@@ -824,203 +590,137 @@ function onSeriesChange() {
   const series = document.getElementById("sel-series").value;
   const filtered = allVehicles.filter(v => v.브랜드코드 === brand && v.시리즈코드 === series);
   const sel = document.getElementById("sel-lineup");
-  sel.innerHTML = '<option value="">라인업 선택</option>';
+  sel.innerHTML = '<option value="">선택</option>';
   getUnique(filtered, "라인업코드", "라인업명").forEach(([c, n]) => {
     sel.innerHTML += `<option value="${c}">${n}</option>`;
   });
   sel.disabled = !series;
-  clearVehicleDetail(); updateCalcBtn();
+  clearDetail(); updateBtn();
 }
 
 function onLineupChange() {
   const brand = document.getElementById("sel-brand").value;
   const series = document.getElementById("sel-series").value;
   const lineup = document.getElementById("sel-lineup").value;
-  const matches = allVehicles.filter(v =>
-    v.브랜드코드 === brand && v.시리즈코드 === series && v.라인업코드 === lineup
-  );
-  if (matches.length > 0) {
-    selectedVehicle = matches[0];
-    fillVehicleDetail(selectedVehicle);
-  } else {
-    selectedVehicle = null;
-    clearVehicleDetail();
-  }
-  updateCalcBtn();
+  const matches = allVehicles.filter(v => v.브랜드코드 === brand && v.시리즈코드 === series && v.라인업코드 === lineup);
+  if (matches.length > 0) { selectedVehicle = matches[0]; fillDetail(selectedVehicle); }
+  else { selectedVehicle = null; clearDetail(); }
+  updateBtn();
 }
 
-function fillVehicleDetail(v) {
-  setText("d-type", v.차종 || "-");
-  setText("d-fuel", v.연료타입 || "-");
-  setText("d-cc", v.배기량 ? v.배기량.toLocaleString() + " cc" : "-");
-  setText("d-seats", v.인승 ? v.인승 + " 인승" : "-");
-  setText("d-load", v.적재량 ? v.적재량.toLocaleString() + " kg" : "0 kg");
-  ["d-type","d-fuel","d-cc","d-seats","d-load"].forEach(id => {
-    document.getElementById(id).classList.remove("empty");
-  });
+function fillDetail(v) {
+  setVal("d-type", v.차종 || "-");
+  setVal("d-fuel", v.연료타입 || "-");
+  setVal("d-cc", v.배기량 ? v.배기량.toLocaleString() + " cc" : "-");
+  setVal("d-load", (v.적재량 || 0) + " kg");
+  setVal("d-seats", v.인승 ? v.인승 + " 인승" : "-");
+  setVal("d-tax", v.차종구분 || "-");
+  ["d-type","d-fuel","d-cc","d-load","d-seats","d-tax"].forEach(id => document.getElementById(id).classList.remove("empty"));
 }
 
-function clearVehicleDetail() {
-  ["d-type","d-fuel","d-cc","d-seats","d-load"].forEach(id => {
-    const el = document.getElementById(id);
-    el.textContent = "-"; el.classList.add("empty");
+function clearDetail() {
+  ["d-type","d-fuel","d-cc","d-load","d-seats","d-tax"].forEach(id => {
+    const el = document.getElementById(id); el.textContent = "-"; el.classList.add("empty");
   });
   selectedVehicle = null;
 }
 
-function setText(id, val) { document.getElementById(id).textContent = val; }
-
-function updateCalcBtn() {
-  const hasVehicle = !!selectedVehicle;
-  document.getElementById("calc-btn").disabled = !hasVehicle;
+function resetLineup() {
+  const sel = document.getElementById("sel-lineup");
+  sel.innerHTML = '<option value="">선택</option>'; sel.disabled = true;
 }
 
-function setDeposit(rate) {
+function setVal(id, val) { document.getElementById(id).textContent = val; }
+function setText(id, val) { document.getElementById(id).textContent = val; }
+function updateBtn() { document.getElementById("calc-btn").disabled = !selectedVehicle; }
+
+function setDeposit(rate, el) {
   depositRate = rate;
   document.querySelectorAll(".rate-btn").forEach(b => b.classList.remove("active"));
-  event.target.classList.add("active");
+  el.classList.add("active");
 }
 
-function won(n) { return Math.round(n).toLocaleString("ko-KR"); }
+function won(n) { if (!n && n !== 0) return "-"; return Math.round(n).toLocaleString("ko-KR"); }
 
 function doCalculate() {
   if (!selectedVehicle) return;
-
   const price = parseInt(document.getElementById("inp-price").value) || selectedVehicle.기본가격 || 0;
   const prepayRate = parseInt(document.getElementById("prepay-slider").value);
   const regdate = document.getElementById("inp-regdate").value;
   const mileage = document.getElementById("inp-mileage").value;
 
-  // 임시 계산 (공식은 나중에 교체)
+  // ※ 계산 공식은 추후 worker.js로 이전 예정
+  // 현재는 UI 표시용 placeholder 값
   const deposit = Math.round(price * depositRate / 100);
   const prepay = Math.round(price * prepayRate / 100);
-  const leasePrincipal = price - deposit;
-  const financeRate = 0.055;
-  const months = 48;
-  const monthlyBase = Math.round(leasePrincipal / months + leasePrincipal * financeRate / 12);
-  const supply = Math.round(monthlyBase / 1.1);
-  const vat = monthlyBase - supply;
-  const prepayDeduct = Math.round(prepay / months);
-  const monthlyFinal = monthlyBase - prepayDeduct;
 
-  // 일반 구매 비교
-  const acquisitionTax = Math.round(price * 0.07);
-  const insurance = Math.round(price * 0.03);
-  const carTax = Math.round(selectedVehicle.배기량 * 200);
-  const generalMonthly = Math.round((acquisitionTax + insurance + carTax) / 12 + price / 60);
+  calcResult = { vehicle: selectedVehicle, price, depositRate, prepayRate, deposit, prepay, regdate, mileage };
 
-  calcResult = {
-    vehicle: selectedVehicle,
-    price, depositRate, prepayRate, deposit, prepay,
-    supply, vat, monthlyBase, prepayDeduct, monthlyFinal,
-    acquisitionTax, insurance, carTax, generalMonthly,
-    regdate, mileage, months
-  };
+  // 결과 섹션 표시
+  document.getElementById("result-section").style.display = "block";
 
-  // 결과 표시
-  document.getElementById("empty-state").style.display = "none";
-  const rw = document.getElementById("result-wrap");
-  rw.style.display = "flex";
+  // 차량가격 표시
+  ["g-price-lim","g-price-gd","l-price-a","l-price-b"].forEach(id => setText(id, won(price) + "원"));
 
-  const v = selectedVehicle;
-  setText("res-car-name", `${v.브랜드명} ${v.시리즈명} · ${v.라인업명}`);
+  // 초기비용 - 리스
+  setText("l-deposit-a", won(deposit) + "원");
+  setText("l-deposit-b", won(deposit) + "원");
+  setText("l-prepay-a", won(prepay) + "원");
+  setText("l-prepay-b", won(prepay) + "원");
+  setText("l-init-a", won(deposit + prepay) + "원");
+  setText("l-init-b", won(deposit + prepay) + "원");
 
-  // 일반 구매
-  setText("g-price", won(price) + "원");
-  setText("g-tax", won(acquisitionTax) + "원");
-  setText("g-insurance", won(insurance) + "원");
-  setText("g-cartax", won(carTax) + "원");
-  setText("g-monthly", won(generalMonthly));
-  setText("g-total", won(generalMonthly) + "원");
-  setText("g-monthly-sub", "취득세·보험·자동차세 포함 월 환산");
-
-  // 리스
-  setText("l-price", won(price) + "원");
-  setText("l-deposit-rate", depositRate);
-  setText("l-deposit", won(deposit) + "원");
-  setText("l-prepay-rate", prepayRate);
-  setText("l-prepay", won(prepay) + "원");
-  setText("l-supply", won(supply) + "원");
-  setText("l-vat", won(vat) + "원");
-  setText("l-base", won(monthlyBase) + "원");
-  setText("l-prepay-deduct", "△" + won(prepayDeduct) + "원");
-  setText("l-monthly", won(monthlyFinal));
-  setText("l-total", won(monthlyFinal) + "원");
-  setText("l-deposit-rate", depositRate);
-  setText("l-monthly-sub", `보증금 ${depositRate}% · 선수금 ${prepayRate}% · ${months}개월`);
+  // 나머지 값은 공식 입력 후 채워짐
+  window.scrollTo({ top: document.getElementById("result-section").offsetTop - 80, behavior: "smooth" });
 }
 
 function openModal() {
   if (!calcResult) return;
-  renderQuoteDoc();
+  renderQuote();
   document.getElementById("modal").classList.add("open");
 }
 function closeModal() { document.getElementById("modal").classList.remove("open"); }
 
-function renderQuoteDoc() {
-  const r = calcResult;
-  const v = r.vehicle;
+function renderQuote() {
+  const r = calcResult; const v = r.vehicle;
   const today = new Date().toLocaleDateString("ko-KR");
-
   document.getElementById("quote-doc").innerHTML = `
     <div class="quote-top">
       <div class="quote-company">㈜하모니렌트카<br>HARMONY RENTCAR</div>
       <div class="quote-title">장기대여 견적서</div>
-      <div class="quote-meta">
-        <table>
-          <tr><td>견적일자</td><td>${today}</td></tr>
-          <tr><td>영업담당자</td><td>&nbsp;</td></tr>
-          <tr><td>전화번호</td><td>1661-9763</td></tr>
-        </table>
-      </div>
+      <div class="quote-meta"><table>
+        <tr><td>견적일자</td><td>${today}</td></tr>
+        <tr><td>영업담당자</td><td>&nbsp;</td></tr>
+        <tr><td>전화번호</td><td>1661-9763</td></tr>
+      </table></div>
     </div>
-
     <div class="quote-greeting">■ VIP 고객님 귀중</div>
-
     <div class="quote-vehicle">
-      <div class="quote-img-box">이미지 없음</div>
-      <div class="quote-vehicle-info">
-        <table>
-          <tr><td>제조사</td><td>${v.브랜드명}</td></tr>
-          <tr><td>모델명</td><td>${v.시리즈명}</td></tr>
-          <tr><td>라인업</td><td>${v.라인업명}</td></tr>
-          <tr><td>차량등록일</td><td>${r.regdate || "-"}</td></tr>
-          <tr><td>주행거리</td><td>${r.mileage ? Number(r.mileage).toLocaleString() + " km" : "-"}</td></tr>
-          <tr><td>유종</td><td>${v.연료타입}</td></tr>
-          <tr><td>인승</td><td>${v.인승}인승</td></tr>
-          <tr><td>배기량</td><td>${v.배기량 ? v.배기량.toLocaleString() + " cc" : "-"}</td></tr>
-          <tr><td>적재량</td><td>${v.적재량 || 0} kg</td></tr>
-          <tr><td>차량가격</td><td>${won(r.price)}원</td></tr>
-        </table>
-      </div>
+      <div class="quote-img">이미지없음</div>
+      <div class="quote-vinfo"><table>
+        <tr><td>제조사</td><td>${v.브랜드명}</td></tr>
+        <tr><td>모델명</td><td>${v.시리즈명}</td></tr>
+        <tr><td>라인업</td><td>${v.라인업명}</td></tr>
+        <tr><td>차량등록일</td><td>${r.regdate || "-"}</td></tr>
+        <tr><td>주행거리</td><td>${r.mileage ? Number(r.mileage).toLocaleString() + " km" : "-"}</td></tr>
+        <tr><td>유종</td><td>${v.연료타입}</td></tr>
+        <tr><td>인승</td><td>${v.인승}인승</td></tr>
+        <tr><td>배기량</td><td>${v.배기량 ? v.배기량.toLocaleString() + " cc" : "-"}</td></tr>
+        <tr><td>적재량</td><td>${v.적재량 || 0} kg</td></tr>
+        <tr><td>차량가격</td><td>${won(r.price)}원</td></tr>
+      </table></div>
     </div>
-
-    <div class="quote-section-title">■ 계약정보</div>
-    <table class="quote-table">
-      <thead>
-        <tr><th style="width:160px">구분</th><th>구독카</th><th>구독카</th></tr>
-      </thead>
+    <div class="quote-section">■ 계약정보</div>
+    <table class="qt">
+      <thead><tr><th style="width:130px">구분</th><th>구독카 (48개월)</th><th>구독카 (60개월)</th></tr></thead>
       <tbody>
-        <tr><td class="left">상품명</td><td>구독카</td><td>구독카</td></tr>
-        <tr><td class="left">대여기간</td><td>${r.months}개월</td><td>${r.months}개월</td></tr>
-        <tr><td class="left">만기처리</td><td>구인월(인수형)</td><td>구인월(인수형)</td></tr>
-        <tr><td class="left">결비상품</td><td>자기기장비</td><td>자기기장비</td></tr>
-        <tr><td class="left">운전자나이</td><td>만26세이상</td><td>만26세이상</td></tr>
-        <tr class="sub"><td class="left" style="padding-left:16px">약정거리</td><td>30,000km/년</td><td>30,000km/년</td></tr>
-        <tr class="sub"><td class="left" style="padding-left:16px">보증금</td><td>${r.depositRate}.0%&nbsp;&nbsp;${won(r.deposit)}원</td><td>${r.depositRate}.0%&nbsp;&nbsp;${won(r.deposit)}원</td></tr>
-        <tr class="sub"><td class="left" style="padding-left:16px">선납금</td><td>${r.prepayRate}.0%&nbsp;&nbsp;${won(r.prepay)}원</td><td>${r.prepayRate}.0%&nbsp;&nbsp;${won(r.prepay)}원</td></tr>
-        <tr class="sub"><td class="left" style="padding-left:16px">만기인수수</td><td>${r.depositRate}.0%&nbsp;&nbsp;${won(r.deposit)}원</td><td>${r.depositRate}.0%&nbsp;&nbsp;${won(r.deposit)}원</td></tr>
-        <tr><td class="left">공급가액</td><td>${won(r.supply)}원</td><td>${won(r.supply)}원</td></tr>
-        <tr><td class="left">부가세</td><td>${won(r.vat)}원</td><td>${won(r.vat)}원</td></tr>
-        <tr class="highlight-row"><td class="left">월 대여료</td><td>${won(r.monthlyBase)}원</td><td>${won(r.monthlyBase)}원</td></tr>
-        <tr><td class="left">선납금 차감</td><td>△${won(r.prepayDeduct)}원</td><td>△${won(r.prepayDeduct)}원</td></tr>
-        <tr class="total-row"><td class="left">실납입 대여료</td><td>${won(r.monthlyFinal)}원</td><td>${won(r.monthlyFinal)}원</td></tr>
+        <tr><td class="left">보증금 (${r.depositRate}%)</td><td>${won(r.deposit)}원</td><td>${won(r.deposit)}원</td></tr>
+        <tr><td class="left">선수금 (${r.prepayRate}%)</td><td>${won(r.prepay)}원</td><td>${won(r.prepay)}원</td></tr>
+        <tr class="hl"><td class="left">실납입 대여료</td><td id="q-final-a">-</td><td id="q-final-b">-</td></tr>
+        <tr class="total-row"><td class="left">총 납입대여료</td><td id="q-total-a">-</td><td id="q-total-b">-</td></tr>
       </tbody>
     </table>
-
-    <div class="quote-footer">
-      ㈜하모니렌트카 · 서울특별시 강서구 양천로401 강서한강자이타워 8동 901호 · ☎ 대표전화 1661-9763
-    </div>
+    <div class="quote-footer">㈜하모니렌트카 · 서울특별시 강서구 양천로401 강서한강자이타워 8동 901호 · ☎ 대표전화 1661-9763</div>
   `;
 }
 </script>
