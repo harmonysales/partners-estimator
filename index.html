@@ -7,14 +7,14 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap');
 :root {
-  --primary:#1a4fd6; --primary2:#0d3bb5; --accent:#0ea5e9;
-  --bg:#f0f4fb; --white:#fff; --border:#d0daf5; --border2:#e8eef9;
+  --primary:#1a4fd6; --primary2:#0d3bb5;
+  --bg:#f0f4fb; --border:#d0daf5; --border2:#e8eef9;
   --text:#1a2340; --text2:#4a5578; --muted:#8b96b8;
   --error:#ef4444; --yellow:#fff8e1; --blue-light:#e8f0fe; --red-bg:#fff0f0;
   --shadow:0 2px 12px rgba(26,79,214,.08);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:13px;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:12px;}
 
 /* 로그인 */
 #login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a4fd6,#0ea5e9);}
@@ -36,7 +36,6 @@ header{background:#fff;border-bottom:1px solid var(--border2);padding:0 28px;hei
 .h-title{font-size:13px;font-weight:600;color:var(--text2);}
 .h-out{background:none;border:1px solid var(--border);color:var(--muted);padding:5px 12px;border-radius:6px;font-size:12px;font-family:inherit;cursor:pointer;}
 .h-out:hover{border-color:var(--error);color:var(--error);}
-
 .wrap{max-width:1320px;margin:0 auto;padding:20px 18px;}
 
 /* 입력 패널 */
@@ -46,9 +45,9 @@ header{background:#fff;border-bottom:1px solid var(--border2);padding:0 28px;hei
 .ip-block{padding:14px 16px;border-right:1px solid var(--border2);}
 .ip-block:last-child{border-right:none;}
 .ip-btitle{font-size:10px;font-weight:700;color:var(--primary);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--border2);letter-spacing:.3px;}
-.ip-row{display:flex;align-items:center;margin-bottom:8px;gap:8px;}
+.ip-row{display:flex;align-items:center;margin-bottom:7px;gap:8px;}
 .ip-row label{font-size:11px;color:var(--text2);font-weight:500;min-width:68px;flex-shrink:0;}
-.ip-row select,.ip-row input{flex:1;padding:5px 8px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);outline:none;background:#fff;}
+.ip-row select,.ip-row input[type=text],.ip-row input[type=number],.ip-row input[type=date]{flex:1;padding:5px 8px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;color:var(--text);outline:none;background:#fff;}
 .ip-row select:focus,.ip-row input:focus{border-color:var(--primary);}
 .ip-row select:disabled{background:#f5f7ff;color:var(--muted);}
 .disp{flex:1;padding:5px 8px;font-size:12px;font-weight:600;background:#f8faff;border:1px solid var(--border2);border-radius:6px;min-height:28px;display:flex;align-items:center;}
@@ -63,12 +62,23 @@ header{background:#fff;border-bottom:1px solid var(--border2);padding:0 28px;hei
 input[type=range]{width:100%;-webkit-appearance:none;height:4px;border-radius:2px;background:var(--border);outline:none;}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--primary);cursor:pointer;box-shadow:0 2px 6px rgba(26,79,214,.3);}
 .sl-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:2px;}
-.calc-wrap{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;}
-.sales-row{display:flex;align-items:center;gap:8px;}
-.sales-row label{font-size:12px;color:var(--text2);font-weight:500;white-space:nowrap;}
-.sales-row input{padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;outline:none;width:140px;}
-.sales-row input:focus{border-color:var(--primary);}
-.calc-btn{padding:9px 32px;background:linear-gradient(135deg,#1a4fd6,#0ea5e9);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;box-shadow:0 4px 14px rgba(26,79,214,.25);}
+
+/* P 입력 */
+.p-input-wrap{display:flex;gap:6px;flex:1;}
+.p-input-wrap input{flex:1;padding:5px 8px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;outline:none;}
+.p-input-wrap input:focus{border-color:var(--primary);}
+.p-toggle{display:flex;border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+.p-toggle button{padding:4px 8px;border:none;background:#fff;font-size:11px;font-family:inherit;cursor:pointer;color:var(--text2);}
+.p-toggle button.on{background:var(--primary);color:#fff;}
+
+/* 하단 바 */
+.calc-wrap{padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.bottom-fields{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.bf-item{display:flex;align-items:center;gap:7px;}
+.bf-item label{font-size:11px;color:var(--text2);font-weight:500;white-space:nowrap;}
+.bf-item input{padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;outline:none;width:130px;}
+.bf-item input:focus{border-color:var(--primary);}
+.calc-btn{padding:9px 28px;background:linear-gradient(135deg,#1a4fd6,#0ea5e9);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;box-shadow:0 4px 14px rgba(26,79,214,.25);white-space:nowrap;}
 .calc-btn:disabled{opacity:.4;cursor:default;}
 
 /* 결과 */
@@ -88,16 +98,16 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
 table.ct{width:100%;border-collapse:collapse;font-size:11px;}
 table.ct th{background:#e8eef9;color:var(--text2);padding:6px 8px;text-align:center;font-weight:600;border-bottom:1px solid var(--border);}
 table.ct th.thm{background:#d0daf5;color:var(--primary);text-align:left;padding-left:10px;width:105px;}
-table.ct td{padding:5px 8px;border-bottom:1px solid var(--border2);vertical-align:middle;height:28px;}
+table.ct td{padding:0 8px;border-bottom:1px solid var(--border2);vertical-align:middle;height:30px;}
 table.ct td.lb{background:#f4f7ff;color:var(--text2);font-weight:500;padding-left:10px;width:105px;}
 table.ct td.sb{background:#f8faff;color:var(--text2);padding-left:18px;}
 table.ct td.vr{text-align:right;font-weight:600;padding-right:10px;}
 table.ct td.vc{text-align:center;}
-table.ct td.empty{background:#fff;border-bottom:1px solid var(--border2);}
-table.ct tr.sec td{background:#eef2fd;font-weight:700;color:var(--primary);font-size:11px;padding:5px 10px;height:26px;}
+table.ct td.emp{background:#fff;}
+table.ct tr.sec td{background:#eef2fd;font-weight:700;color:var(--primary);font-size:11px;padding:0 10px;height:26px;}
 table.ct tr.hl td{background:var(--yellow);font-weight:700;}
 table.ct tr.bl td{background:var(--blue-light);font-weight:700;color:var(--primary);}
-table.ct tr.tot td{background:var(--primary);color:#fff;font-weight:800;font-size:12px;padding:8px 10px;text-align:right;height:34px;}
+table.ct tr.tot td{background:var(--primary);color:#fff;font-weight:800;font-size:12px;padding:0 10px;text-align:right;height:36px;}
 table.ct tr.tot td:first-child{text-align:left;padding-left:12px;}
 table.ct tr.red td{background:var(--red-bg);font-weight:800;color:#c0392b;}
 table.ct tr.red td.lb{background:#ffe4e4;}
@@ -121,7 +131,6 @@ table.ct tr.red td.lb{background:#ffe4e4;}
 .qmeta td{padding:2px 7px;border:1px solid #ccc;}
 .qmeta td:first-child{background:#eef2fd;font-weight:600;width:58px;}
 .qgreet{font-size:12px;font-weight:700;margin-bottom:10px;}
-/* 견적서 차량정보 - 2컬럼 그리드 */
 .qveh{display:grid;grid-template-columns:1fr 1fr;border:1px solid #ccc;margin-bottom:14px;}
 .qvleft,.qvright{padding:10px 14px;}
 .qvleft{border-right:1px solid #ccc;}
@@ -174,7 +183,6 @@ table.qt tr.qins td{background:#eef2fd;font-size:9px;color:#4a5578;}
   </header>
 
   <div class="wrap">
-    <!-- 입력 패널 -->
     <div class="input-panel">
       <div class="ip-title">[차량구입] 할부 vs 렌트/리스 비교</div>
       <div class="ip-grid">
@@ -215,7 +223,7 @@ table.qt tr.qins td{background:#eef2fd;font-size:9px;color:#4a5578;}
               <button class="rbtn" onclick="setDep(30,this)">30%</button>
             </div>
           </div>
-          <div class="ip-row" style="align-items:flex-start;margin-top:10px;">
+          <div class="ip-row" style="align-items:flex-start;margin-top:8px;">
             <label style="padding-top:2px;">선수금율</label>
             <div class="sl-wrap">
               <div class="sl-top">
@@ -227,12 +235,28 @@ table.qt tr.qins td{background:#eef2fd;font-size:9px;color:#4a5578;}
               <div class="sl-labels"><span>0%</span><span>25%</span><span>50%</span></div>
             </div>
           </div>
+          <div class="ip-row" style="margin-top:10px;">
+            <label>수수료 (P)</label>
+            <div class="p-input-wrap">
+              <input type="number" id="i-p-val" placeholder="0" min="0" oninput="syncP('val')"/>
+              <div class="p-toggle">
+                <button id="pt-pct" class="on" onclick="setPMode('pct')">%</button>
+                <button id="pt-won" onclick="setPMode('won')">원</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="calc-wrap">
-        <div class="sales-row">
-          <label>영업담당자</label>
-          <input type="text" id="i-sales" placeholder="이름 입력"/>
+        <div class="bottom-fields">
+          <div class="bf-item">
+            <label>영업담당자</label>
+            <input type="text" id="i-sales" placeholder="이름 입력"/>
+          </div>
+          <div class="bf-item">
+            <label>전화번호</label>
+            <input type="text" id="i-phone" placeholder="연락처 입력"/>
+          </div>
         </div>
         <button class="calc-btn" id="cbtn" onclick="doCalc()" disabled>견적 계산하기</button>
       </div>
@@ -277,9 +301,11 @@ table.qt tr.qins td{background:#eef2fd;font-size:9px;color:#4a5578;}
                 <tr class="hl"><td class="sb">합계</td><td class="vr" id="g-mnt48">-</td><td class="vr" id="g-mnt60">-</td></tr>
                 <tr class="sec"><td colspan="3">할부금</td></tr>
                 <tr><td class="sb">금리</td><td class="vc" id="g-rate">-</td><td class="vc" id="g-rate2">-</td></tr>
-                <tr><td class="empty" colspan="3" style="height:28px;"></td></tr>
+                <tr><td class="emp" colspan="3"></td></tr>
                 <tr class="hl"><td class="sb">월부금</td><td class="vr" id="g-m48">-</td><td class="vr" id="g-m60">-</td></tr>
-                <tr><td class="empty" colspan="3" style="height:28px;"></td></tr>
+                <tr><td class="emp" colspan="3"></td></tr>
+                <tr><td class="emp" colspan="3"></td></tr>
+                <tr><td class="emp" colspan="3"></td></tr>
                 <tr class="tot"><td>총 할부금</td><td id="g-ti48">-</td><td id="g-ti60">-</td></tr>
                 <tr class="bl"><td class="lb">4년 / 5년 총 투입비</td><td class="vr" id="g-tot48b">-</td><td class="vr" id="g-tot60b">-</td></tr>
                 <tr class="hl"><td class="lb">월 평균비용</td><td class="vr" id="g-avg48b">-</td><td class="vr" id="g-avg60b">-</td></tr>
@@ -302,17 +328,19 @@ table.qt tr.qins td{background:#eef2fd;font-size:9px;color:#4a5578;}
                 <tr><td class="sb">대여기간</td><td class="vc">48개월</td><td class="vc">60개월</td></tr>
                 <tr class="sec"><td colspan="3">초기비용</td></tr>
                 <tr><td class="sb">보증금</td><td class="vr" id="l-dep48">-</td><td class="vr" id="l-dep60">-</td></tr>
-                <tr><td class="empty" colspan="3" style="height:28px;"></td></tr>
+                <tr><td class="emp" colspan="3"></td></tr>
                 <tr><td class="sb">선수금</td><td class="vr" id="l-pre48">-</td><td class="vr" id="l-pre60">-</td></tr>
-                <tr><td class="empty" colspan="3" style="height:28px;"></td></tr>
-                <tr><td class="empty" colspan="3" style="height:28px;"></td></tr>
+                <tr><td class="emp" colspan="3"></td></tr>
+                <tr><td class="emp" colspan="3"></td></tr>
                 <tr class="hl"><td class="sb">합계</td><td class="vr" id="l-init48">-</td><td class="vr" id="l-init60">-</td></tr>
+                <tr class="sec"><td colspan="3">기타비용</td></tr>
+                <tr><td class="sb">하이링크 서비스</td><td class="vr">2,000원/월</td><td class="vr">2,000원/월</td></tr>
+                <tr><td class="emp" colspan="3"></td></tr>
                 <tr><td class="sb">차량형식</td><td class="vc">구입형 리스</td><td class="vc">구입형 리스</td></tr>
                 <tr><td class="sb">만기처리방식</td><td class="vc">구입형(리스형)</td><td class="vc">구입형(리스형)</td></tr>
                 <tr><td class="sb">만기인수금</td><td class="vr" id="l-res48">-</td><td class="vr" id="l-res60">-</td></tr>
-                <tr><td class="empty" colspan="3" style="height:28px;"></td></tr>
+                <tr><td class="emp" colspan="3"></td></tr>
                 <tr><td class="sb">월 대여료</td><td class="vr" id="l-base48">-</td><td class="vr" id="l-base60">-</td></tr>
-                <tr><td class="empty" colspan="3" style="height:28px;"></td></tr>
                 <tr><td class="sb">선수금차감</td><td class="vr" id="l-ded48">-</td><td class="vr" id="l-ded60">-</td></tr>
                 <tr class="red"><td class="lb">실납입 대여료</td><td class="vr" id="l-fin48">-</td><td class="vr" id="l-fin60">-</td></tr>
                 <tr class="tot"><td>총 납입대여료</td><td id="l-tl48">-</td><td id="l-tl60">-</td></tr>
@@ -321,7 +349,6 @@ table.qt tr.qins td{background:#eef2fd;font-size:9px;color:#4a5578;}
               </tbody>
             </table>
           </div>
-
         </div>
       </div>
     </div>
@@ -345,10 +372,8 @@ table.qt tr.qins td{background:#eef2fd;font-size:9px;color:#4a5578;}
 <script>
 const WORKER_URL = "https://lease-estimator-api.hmn1234.workers.dev";
 let token = sessionStorage.getItem("lt") || null;
-let vehicles = [];
-let selV = null;
-let depRate = 20;
-let CR = null;
+let vehicles = [], selV = null, depRate = 20, CR = null;
+let pMode = "pct"; // pct or won
 
 window.onload = () => { if (token) showApp(); };
 document.getElementById("pw").addEventListener("keydown", e => { if(e.key==="Enter") doLogin(); });
@@ -410,7 +435,6 @@ function onBrand() {
   const f = vehicles.filter(v => v.브랜드코드===bc);
   const s = document.getElementById("s-series");
   s.innerHTML = '<option value="">선택</option>';
-  // 시리즈별로 모델명 표시 (시리즈코드 기준, 표시는 시리즈명)
   uniqBy(f,"시리즈코드","시리즈명").forEach(([c,n]) => s.innerHTML += `<option value="${c}">${n}</option>`);
   s.disabled = !bc;
   document.getElementById("s-lineup").innerHTML = '<option value="">선택</option>';
@@ -424,10 +448,9 @@ function onSeries() {
   const f = vehicles.filter(v => v.브랜드코드===bc && v.시리즈코드===sc);
   const s = document.getElementById("s-lineup");
   s.innerHTML = '<option value="">선택</option>';
-  // 라인업 옵션: 모델명 + 라인업명 조합으로 표시
   const seen = new Set();
   f.forEach(v => {
-    const key = v.모델코드 + "_" + v.라인업코드;
+    const key = v.모델코드 + "|" + v.라인업코드;
     if (!seen.has(key)) {
       seen.add(key);
       const label = v.모델명 !== v.시리즈명 ? `[${v.모델명}] ${v.라인업명}` : v.라인업명;
@@ -451,27 +474,39 @@ function onLineup() {
 
 function fillDetail(v) {
   const ids = ["d-type","d-fuel","d-cc","d-load","d-seats","d-taxtype"];
-  const vals = [v.차종, v.연료타입,
-    v.배기량?(v.배기량.toLocaleString()+" cc"):"-",
-    (v.적재량||0)+" kg",
-    v.인승?(v.인승+"인승"):"-",
-    v.차종구분||"-"];
+  const vals = [v.차종, v.연료타입, v.배기량?(v.배기량.toLocaleString()+" cc"):"-",
+    (v.적재량||0)+" kg", v.인승?(v.인승+"인승"):"-", v.차종구분||"-"];
   ids.forEach((id,i) => { const el=document.getElementById(id); el.textContent=vals[i]; el.classList.remove("empty"); });
 }
 
 function clearDetail() {
   ["d-type","d-fuel","d-cc","d-load","d-seats","d-taxtype"].forEach(id => {
-    const el = document.getElementById(id); el.textContent="-"; el.classList.add("empty");
+    const el=document.getElementById(id); el.textContent="-"; el.classList.add("empty");
   });
   selV = null;
 }
 
 function updateBtn() { document.getElementById("cbtn").disabled = !selV; }
-
 function setDep(r, el) {
   depRate = r;
   document.querySelectorAll(".rbtn").forEach(b => b.classList.remove("on"));
   el.classList.add("on");
+}
+
+// P 수수료 모드 전환
+function setPMode(mode) {
+  pMode = mode;
+  document.getElementById("pt-pct").classList.toggle("on", mode==="pct");
+  document.getElementById("pt-won").classList.toggle("on", mode==="won");
+  document.getElementById("i-p-val").placeholder = mode==="pct" ? "%" : "원";
+  document.getElementById("i-p-val").value = "";
+}
+
+// P 값 가져오기 (항상 금액으로 반환)
+function getPAmount(price) {
+  const val = parseFloat(document.getElementById("i-p-val").value) || 0;
+  if (pMode === "pct") return Math.round(price * val / 100);
+  return Math.round(val);
 }
 
 const W = n => { if(n===null||n===undefined) return "-"; return Math.round(Number(n)).toLocaleString("ko-KR")+"원"; };
@@ -484,6 +519,7 @@ async function doCalc() {
   btn.disabled = true; btn.textContent = "계산 중...";
   const price = parseInt(document.getElementById("i-price").value) || selV.기본가격 || 0;
   const preRate = parseInt(document.getElementById("ps").value) / 100;
+  const pAmount = getPAmount(price);
   try {
     const r = await fetch(`${WORKER_URL}/api/estimate`, {
       method:"POST", headers:{"Content-Type":"application/json"},
@@ -492,6 +528,7 @@ async function doCalc() {
         brandCode: selV.브랜드코드, seriesCode: selV.시리즈코드,
         modelCode: selV.모델코드, lineupCode: selV.라인업코드,
         price, depositRate: depRate/100, prepayRate: preRate,
+        pAmount,
         regdate: document.getElementById("i-regdate").value,
         mileage: document.getElementById("i-mileage").value
       })
@@ -507,7 +544,6 @@ async function doCalc() {
 function showResult(r) {
   const g = r.g; const l = r.l;
   document.getElementById("result").style.display = "block";
-  // 할부
   s("g-tot48",W(g.total48)); s("g-tot60",W(g.total60));
   s("g-avg48",W(g.avg48));   s("g-avg60",W(g.avg60));
   s("g-price48",W(g.price)); s("g-price60",W(g.price));
@@ -524,7 +560,6 @@ function showResult(r) {
   s("g-ti48",N(g.totalInstall48)+"원"); s("g-ti60",N(g.totalInstall60)+"원");
   s("g-tot48b",W(g.total48)); s("g-tot60b",W(g.total60));
   s("g-avg48b",W(g.avg48));   s("g-avg60b",W(g.avg60));
-  // 리스
   s("l-tot48",W(l.total48)); s("l-tot60",W(l.total60));
   s("l-avg48",W(l.avg48));   s("l-avg60",W(l.avg60));
   s("l-price48",W(l.price)); s("l-price60",W(l.price));
@@ -552,6 +587,7 @@ function renderQuote() {
   const r = CR; const v = r.vehicle; const inp = r.input; const l = r.l;
   const today = new Date().toLocaleDateString("ko-KR");
   const salesName = document.getElementById("i-sales").value || "&nbsp;";
+  const phone = document.getElementById("i-phone").value || "1661-9763";
   document.getElementById("qdoc").innerHTML = `
     <div class="qtop">
       <div class="qco">㈜하모니렌트카<br>HARMONY RENTCAR</div>
@@ -559,7 +595,7 @@ function renderQuote() {
       <div class="qmeta"><table>
         <tr><td>견적일자</td><td>${today}</td></tr>
         <tr><td>영업담당자</td><td>${salesName}</td></tr>
-        <tr><td>전화번호</td><td>1661-9763</td></tr>
+        <tr><td>전화번호</td><td>${phone}</td></tr>
       </table></div>
     </div>
     <div class="qgreet">■ VIP 고객님 귀중</div>
