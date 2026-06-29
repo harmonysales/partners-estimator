@@ -611,8 +611,8 @@ function closeModal() { document.getElementById("modal").classList.remove("open"
 function renderQuote() {
   const r = CR; const v = r.vehicle; const inp = r.input; const l = r.l;
   const today = new Date().toLocaleDateString("ko-KR");
-  const salesName = document.getElementById("i-sales").value || "&nbsp;";
-  const phone = document.getElementById("i-phone").value || "1661-9763";
+  const salesName = escapeHtml(document.getElementById("i-sales").value) || "&nbsp;";
+const phone = escapeHtml(document.getElementById("i-phone").value) || "1661-9763";
   document.getElementById("qdoc").innerHTML = `
     <div class="qtop">
       <div class="qco">㈜하모니렌트카<br>HARMONY RENTCAR</div>
@@ -666,6 +666,14 @@ function renderQuote() {
     </table>
     <div class="qfoot">㈜하모니렌트카 · 서울특별시 강서구 양천로401 강서한강자이타워 B동 901호 · ☎ 대표전화 1661-9763</div>
   `;
+}
+  function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;");
 }
 </script>
 </body>
