@@ -201,9 +201,9 @@ table.qt tr.qins td{background:#eef2fd;font-size:9px;color:#4a5578;}
           <div class="ip-row"><label>차량등록일</label>
             <input type="text" id="i-regdate" placeholder="YYYY-MM-DD" maxlength="10" oninput="fmtDate(this)"/></div>
           <div class="ip-row"><label>주행거리</label>
-            <input type="number" id="i-mileage" placeholder="km" min="0" step="1000"/></div>
+            <input type="text" id="i-mileage" placeholder="km" oninput="fmtNum(this)"/></div>
           <div class="ip-row"><label>차량가격</label>
-            <input type="number" id="i-price" placeholder="원" min="0" step="100000"/></div>
+            <input type="text" id="i-price" placeholder="원" oninput="fmtNum(this)"/></div>
         </div>
         <!-- 차량 세부정보 -->
         <div class="ip-block">
@@ -311,6 +311,7 @@ table.qt tr.qins td{background:#eef2fd;font-size:9px;color:#4a5578;}
                 <tr><td class="emp" colspan="3"></td></tr>
                 <tr><td class="emp" colspan="3"></td></tr>
                 <tr class="tot"><td>총 할부금</td><td id="g-ti48">-</td><td id="g-ti60">-</td></tr>
+                <tr><td class="emp" colspan="3"></td></tr>
                 <tr class="bl"><td class="lb">4년 / 5년 총 투입비</td><td class="vr" id="g-tot48b">-</td><td class="vr" id="g-tot60b">-</td></tr>
                 <tr class="hl"><td class="lb">월 평균비용</td><td class="vr" id="g-avg48b">-</td><td class="vr" id="g-avg60b">-</td></tr>
               </tbody>
@@ -350,6 +351,7 @@ table.qt tr.qins td{background:#eef2fd;font-size:9px;color:#4a5578;}
                 <tr><td class="emp" colspan="3"></td></tr>
                 <tr class="red"><td class="lb">실납입 대여료</td><td class="vr" id="l-fin48">-</td><td class="vr" id="l-fin60">-</td></tr>
                 <tr class="tot"><td>총 납입대여료</td><td id="l-tl48">-</td><td id="l-tl60">-</td></tr>
+                <tr><td class="emp" colspan="3"></td></tr>
                 <tr class="bl"><td class="lb">4년 / 5년 총 투입비</td><td class="vr" id="l-tot48b">-</td><td class="vr" id="l-tot60b">-</td></tr>
                 <tr class="hl"><td class="lb">월 평균비용</td><td class="vr" id="l-avg48b">-</td><td class="vr" id="l-avg60b">-</td></tr>
               </tbody>
@@ -543,7 +545,7 @@ async function doCalc() {
   if (!selV) return;
   const btn = document.getElementById("cbtn");
   btn.disabled = true; btn.textContent = "계산 중...";
-  const price = parseInt(document.getElementById("i-price").value) || selV.기본가격 || 0;
+  const price = parseInt((document.getElementById("i-price")._raw || document.getElementById("i-price").value).replace(/,/g,'')) || selV.기본가격 || 0;
   const preRate = parseInt(document.getElementById("ps").value) / 100;
   const pAmount = getPAmount(price);
   try {
@@ -556,7 +558,7 @@ async function doCalc() {
         price, depositRate: depRate/100, prepayRate: preRate,
         pAmount,
         regdate: document.getElementById("i-regdate").value,
-        mileage: document.getElementById("i-mileage").value
+        mileage: (document.getElementById("i-mileage")._raw || document.getElementById("i-mileage").value).replace(/,/g,'')
       })
     });
     const d = await r.json();
@@ -667,6 +669,12 @@ function renderQuote() {
     </table>
     <div class="qfoot">㈜하모니렌트카 · 서울특별시 강서구 양천로401 강서한강자이타워 B동 901호 · ☎ 대표전화 1661-9763</div>
   `;
+}
+
+function fmtNum(el) {
+  let v = el.value.replace(/[^0-9]/g, '');
+  el.value = v ? Number(v).toLocaleString('ko-KR') : '';
+  el._raw = v;
 }
 
 function fmtDate(el) {
