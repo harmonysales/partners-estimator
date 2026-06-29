@@ -89,8 +89,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
 /* 비교표 */
 .cmp-outer{background:#fff;border:1px solid var(--border2);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;}
 .cmp-header{background:var(--primary);color:#fff;padding:10px 0;text-align:center;font-size:14px;font-weight:800;}
-.cmp-body{display:grid;grid-template-columns:1fr 1px 1fr;}
+.cmp-body{display:grid;grid-template-columns:1fr 1px 1fr;align-items:start;}
 .cmp-div{background:var(--border2);}
+.cmp-side,.cmp-left,.cmp-right{height:100%;}
 .cmp-sub{padding:7px 0;text-align:center;font-size:12px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,.2);}
 .cmp-left .cmp-sub{background:#3d6be8;}
 .cmp-right .cmp-sub{background:#0d3bb5;}
@@ -98,13 +99,13 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
 table.ct{width:100%;border-collapse:collapse;font-size:11px;}
 table.ct th{background:#e8eef9;color:var(--text2);padding:6px 8px;text-align:center;font-weight:600;border-bottom:1px solid var(--border);}
 table.ct th.thm{background:#d0daf5;color:var(--primary);text-align:left;padding-left:10px;width:105px;}
-table.ct td{padding:0 8px;border-bottom:1px solid var(--border2);vertical-align:middle;height:30px;}
+table.ct td{padding:0 8px;border-bottom:1px solid var(--border2);vertical-align:middle;height:30px;box-sizing:border-box;}
 table.ct td.lb{background:#f4f7ff;color:var(--text2);font-weight:500;padding-left:10px;width:105px;white-space:nowrap;}
 table.ct td.sb{background:#f8faff;color:var(--text2);padding-left:18px;}
 table.ct td.vr{text-align:right;font-weight:600;padding-right:10px;}
 table.ct td.vc{text-align:center;}
 table.ct td.emp{background:#fff;}
-table.ct tr.sec td{background:#eef2fd;font-weight:700;color:var(--primary);font-size:11px;padding:0 10px;height:26px;}
+table.ct tr.sec td{background:#eef2fd;font-weight:700;color:var(--primary);font-size:11px;padding:0 10px;height:30px;}
 table.ct tr.hl td{background:var(--yellow);font-weight:700;}
 table.ct tr.bl td{background:var(--blue-light);font-weight:700;color:var(--primary);white-space:nowrap;}
 table.ct tr.tot td{background:var(--primary);color:#fff;font-weight:800;font-size:12px;padding:0 10px;text-align:right;height:36px;}
@@ -213,7 +214,7 @@ table.qt tr.qins td{background:#eef2fd;font-size:9px;color:#4a5578;}
           <div class="ip-row"><label>배기량</label><div class="disp empty" id="d-cc">-</div></div>
           <div class="ip-row"><label>적재량</label><div class="disp empty" id="d-load">-</div></div>
           <div class="ip-row"><label>인승</label><div class="disp empty" id="d-seats">-</div></div>
-          <div class="ip-row"><label>과세여부</label><div class="disp empty" id="d-taxtype">-</div></div>
+          <div class="ip-row" style="display:none;"><label>과세여부</label><div class="disp empty" id="d-taxtype">-</div></div>
         </div>
         <!-- 계약정보 -->
         <div class="ip-block">
