@@ -99,14 +99,14 @@ table.ct{width:100%;border-collapse:collapse;font-size:11px;}
 table.ct th{background:#e8eef9;color:var(--text2);padding:6px 8px;text-align:center;font-weight:600;border-bottom:1px solid var(--border);}
 table.ct th.thm{background:#d0daf5;color:var(--primary);text-align:left;padding-left:10px;width:105px;}
 table.ct td{padding:0 8px;border-bottom:1px solid var(--border2);vertical-align:middle;height:30px;}
-table.ct td.lb{background:#f4f7ff;color:var(--text2);font-weight:500;padding-left:10px;width:105px;}
+table.ct td.lb{background:#f4f7ff;color:var(--text2);font-weight:500;padding-left:10px;width:105px;white-space:nowrap;}
 table.ct td.sb{background:#f8faff;color:var(--text2);padding-left:18px;}
 table.ct td.vr{text-align:right;font-weight:600;padding-right:10px;}
 table.ct td.vc{text-align:center;}
 table.ct td.emp{background:#fff;}
 table.ct tr.sec td{background:#eef2fd;font-weight:700;color:var(--primary);font-size:11px;padding:0 10px;height:26px;}
 table.ct tr.hl td{background:var(--yellow);font-weight:700;}
-table.ct tr.bl td{background:var(--blue-light);font-weight:700;color:var(--primary);}
+table.ct tr.bl td{background:var(--blue-light);font-weight:700;color:var(--primary);white-space:nowrap;}
 table.ct tr.tot td{background:var(--primary);color:#fff;font-weight:800;font-size:12px;padding:0 10px;text-align:right;height:36px;}
 table.ct tr.tot td:first-child{text-align:left;padding-left:12px;}
 table.ct tr.red td{background:var(--red-bg);font-weight:800;color:#c0392b;}
@@ -193,6 +193,8 @@ table.qt tr.qins td{background:#eef2fd;font-size:9px;color:#4a5578;}
             <select id="s-brand" onchange="onBrand()"><option value="">선택</option></select></div>
           <div class="ip-row"><label>모델</label>
             <select id="s-series" onchange="onSeries()" disabled><option value="">선택</option></select></div>
+          <div class="ip-row"><label>세부모델</label>
+            <select id="s-model" onchange="onModel()" disabled><option value="">선택</option></select></div>
           <div class="ip-row"><label>라인업</label>
             <select id="s-lineup" onchange="onLineup()" disabled><option value="">선택</option></select></div>
           <div class="ip-row"><label>차량등록일</label>
@@ -303,6 +305,7 @@ table.qt tr.qins td{background:#eef2fd;font-size:9px;color:#4a5578;}
                 <tr><td class="sb">금리</td><td class="vc" id="g-rate">-</td><td class="vc" id="g-rate2">-</td></tr>
                 <tr><td class="emp" colspan="3"></td></tr>
                 <tr class="hl"><td class="sb">월부금</td><td class="vr" id="g-m48">-</td><td class="vr" id="g-m60">-</td></tr>
+                <tr><td class="emp" colspan="3"></td></tr>
                 <tr><td class="emp" colspan="3"></td></tr>
                 <tr><td class="emp" colspan="3"></td></tr>
                 <tr><td class="emp" colspan="3"></td></tr>
@@ -437,6 +440,8 @@ function onBrand() {
   s.innerHTML = '<option value="">선택</option>';
   uniqBy(f,"시리즈코드","시리즈명").forEach(([c,n]) => s.innerHTML += `<option value="${c}">${n}</option>`);
   s.disabled = !bc;
+  document.getElementById("s-model").innerHTML = '<option value="">선택</option>';
+  document.getElementById("s-model").disabled = true;
   document.getElementById("s-lineup").innerHTML = '<option value="">선택</option>';
   document.getElementById("s-lineup").disabled = true;
   clearDetail(); updateBtn();
@@ -446,27 +451,45 @@ function onSeries() {
   const bc = document.getElementById("s-brand").value;
   const sc = document.getElementById("s-series").value;
   const f = vehicles.filter(v => v.브랜드코드===bc && v.시리즈코드===sc);
-  const s = document.getElementById("s-lineup");
-  s.innerHTML = '<option value="">선택</option>';
+  // 모델명 드롭다운
+  const sm = document.getElementById("s-model");
+  sm.innerHTML = '<option value="">선택</option>';
   const seen = new Set();
   f.forEach(v => {
-    const key = v.모델코드 + "|" + v.라인업코드;
-    if (!seen.has(key)) {
-      seen.add(key);
-      const label = v.모델명 !== v.시리즈명 ? `[${v.모델명}] ${v.라인업명}` : v.라인업명;
-      s.innerHTML += `<option value="${v.모델코드}|${v.라인업코드}">${label}</option>`;
+    if (!seen.has(v.모델코드)) {
+      seen.add(v.모델코드);
+      sm.innerHTML += `<option value="${v.모델코드}">${v.모델명}</option>`;
     }
   });
-  s.disabled = !sc;
+  sm.disabled = !sc;
+  document.getElementById("s-lineup").innerHTML = '<option value="">선택</option>';
+  document.getElementById("s-lineup").disabled = true;
+  clearDetail(); updateBtn();
+}
+
+function onModel() {
+  const bc = document.getElementById("s-brand").value;
+  const sc = document.getElementById("s-series").value;
+  const mc = document.getElementById("s-model").value;
+  const f = vehicles.filter(v => v.브랜드코드===bc && v.시리즈코드===sc && v.모델코드===mc);
+  const sl = document.getElementById("s-lineup");
+  sl.innerHTML = '<option value="">선택</option>';
+  const seen = new Set();
+  f.forEach(v => {
+    if (!seen.has(v.라인업코드)) {
+      seen.add(v.라인업코드);
+      sl.innerHTML += `<option value="${v.라인업코드}">${v.라인업명}</option>`;
+    }
+  });
+  sl.disabled = !mc;
   clearDetail(); updateBtn();
 }
 
 function onLineup() {
   const bc = document.getElementById("s-brand").value;
   const sc = document.getElementById("s-series").value;
-  const val = document.getElementById("s-lineup").value;
-  if (!val) { clearDetail(); updateBtn(); return; }
-  const [mc, lc] = val.split("|");
+  const mc = document.getElementById("s-model").value;
+  const lc = document.getElementById("s-lineup").value;
   const m = vehicles.find(v => v.브랜드코드===bc && v.시리즈코드===sc && v.모델코드===mc && v.라인업코드===lc);
   if (m) { selV = m; fillDetail(m); } else { selV = null; clearDetail(); }
   updateBtn();
