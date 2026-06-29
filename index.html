@@ -242,7 +242,7 @@ table.qt tr.qins td{background:#eef2fd;font-size:9px;color:#4a5578;}
           <div class="ip-row" style="margin-top:10px;">
             <label>수수료 (P)</label>
             <div class="p-input-wrap">
-              <input type="number" id="i-p-val" placeholder="0" min="0" oninput="syncP('val')"/>
+              <input type="text" id="i-p-val" placeholder="0" oninput="fmtNum(this)"/>
               <div class="p-toggle">
                 <button id="pt-pct" class="on" onclick="setPMode('pct')">%</button>
                 <button id="pt-won" onclick="setPMode('won')">원</button>
@@ -533,7 +533,8 @@ function setPMode(mode) {
 
 // P 값 가져오기 (항상 금액으로 반환)
 function getPAmount(price) {
-  const val = parseFloat(document.getElementById("i-p-val").value) || 0;
+  const raw = (document.getElementById("i-p-val")._raw || document.getElementById("i-p-val").value).replace(/,/g,'');
+  const val = parseFloat(raw) || 0;
   if (pMode === "pct") return Math.round(price * val / 100);
   return Math.round(val);
 }
