@@ -154,6 +154,7 @@ table.qt tr.qins td{background:#eef2fd;font-size:9px;color:#4a5578;}
   .modal-bg{position:absolute;top:0;left:0;padding:0;background:#fff;}
   .modal-box{box-shadow:none;max-height:none;border-radius:0;}
   .modal-top{display:none;}
+  * {-webkit-print-color-adjust:exact !important; print-color-adjust:exact !important;}
 }
 </style>
 </head>
@@ -198,7 +199,7 @@ table.qt tr.qins td{background:#eef2fd;font-size:9px;color:#4a5578;}
           <div class="ip-row"><label>라인업</label>
             <select id="s-lineup" onchange="onLineup()" disabled><option value="">선택</option></select></div>
           <div class="ip-row"><label>차량등록일</label>
-            <input type="date" id="i-regdate"/></div>
+            <input type="text" id="i-regdate" placeholder="YYYY-MM-DD" maxlength="10" oninput="fmtDate(this)"/></div>
           <div class="ip-row"><label>주행거리</label>
             <input type="number" id="i-mileage" placeholder="km" min="0" step="1000"/></div>
           <div class="ip-row"><label>차량가격</label>
@@ -611,8 +612,8 @@ function closeModal() { document.getElementById("modal").classList.remove("open"
 function renderQuote() {
   const r = CR; const v = r.vehicle; const inp = r.input; const l = r.l;
   const today = new Date().toLocaleDateString("ko-KR");
-  const salesName = escapeHtml(document.getElementById("i-sales").value) || "&nbsp;";
-const phone = escapeHtml(document.getElementById("i-phone").value) || "1661-9763";
+  const salesName = document.getElementById("i-sales").value || "&nbsp;";
+  const phone = document.getElementById("i-phone").value || "1661-9763";
   document.getElementById("qdoc").innerHTML = `
     <div class="qtop">
       <div class="qco">㈜하모니렌트카<br>HARMONY RENTCAR</div>
@@ -667,13 +668,13 @@ const phone = escapeHtml(document.getElementById("i-phone").value) || "1661-9763
     <div class="qfoot">㈜하모니렌트카 · 서울특별시 강서구 양천로401 강서한강자이타워 B동 901호 · ☎ 대표전화 1661-9763</div>
   `;
 }
-  function escapeHtml(str) {
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#x27;");
+
+function fmtDate(el) {
+  let v = el.value.replace(/[^0-9]/g, '');
+  if (v.length > 4) v = v.slice(0,4) + '-' + v.slice(4);
+  if (v.length > 7) v = v.slice(0,7) + '-' + v.slice(7);
+  if (v.length > 10) v = v.slice(0,10);
+  el.value = v;
 }
 </script>
 </body>
