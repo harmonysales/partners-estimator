@@ -378,8 +378,12 @@ table.qt tr.qins td{background:#eef2fd;font-size:11px;color:#4a5578;}
         <div class="pf-input-wrap"><input type="text" id="pi-insurance" placeholder="0" oninput="fmtNum(this)"/><span>원</span></div>
       </div>
       <div class="pf-input-row">
-        <label>예상 매각가</label>
-        <div class="pf-input-wrap"><input type="text" id="pi-saleprice" placeholder="0" oninput="fmtNum(this)"/><span>원</span></div>
+        <label>예상 매각가 (48개월)</label>
+        <div class="pf-input-wrap"><input type="text" id="pi-saleprice48" placeholder="0" oninput="fmtNum(this)"/><span>원</span></div>
+      </div>
+      <div class="pf-input-row">
+        <label>예상 매각가 (60개월)</label>
+        <div class="pf-input-wrap"><input type="text" id="pi-saleprice60" placeholder="0" oninput="fmtNum(this)"/><span>원</span></div>
       </div>
     </div>
     <button onclick="submitProfitInput()" style="margin-top:14px;">수익분석 계산</button>
@@ -749,7 +753,8 @@ async function submitProfitInput() {
   const transferInput  = getNum("pi-transfer");
   const fundRatioInput = getNum("pi-fundratio");
   const insuranceInput = getNum("pi-insurance");
-  const salePriceInput = getNum("pi-saleprice");
+  const salePriceInput48 = getNum("pi-saleprice48");
+  const salePriceInput60 = getNum("pi-saleprice60");
 
   const price = parseInt((document.getElementById("i-price")._raw || document.getElementById("i-price").value).replace(/,/g,"")) || selV.기본가격 || 0;
 
@@ -775,7 +780,8 @@ async function submitProfitInput() {
         price, depositRate: depRate/100,
         prepayRate: parseInt(document.getElementById("ps").value) / 100,
         insurance: insuranceInput || 0,
-        salePrice: salePriceInput || 0,
+        salePrice48: salePriceInput48 || 0,
+        salePrice60: salePriceInput60 || 0,
         ...adminVars,
       })
     });
@@ -842,7 +848,7 @@ function renderProfit(r) {
 
             <tr class="pf2sec"><td colspan="3">수익 / 차감비용</td></tr>
             <tr><td class="pfl">이자수익 (PMT 기준)</td><td class="pfv">${W(c.interestCost48)}</td><td class="pfv">${W(c.interestCost60)}</td></tr>
-            <tr><td class="pfl">GPS비용 (총액)</td><td class="pfv">${W(c.gps)}</td><td class="pfv">${W(c.gps)}</td></tr>
+            <tr><td class="pfl">GPS비용 (총액)</td><td class="pfv">${W(c.gps48)}</td><td class="pfv">${W(c.gps60)}</td></tr>
             <tr><td class="pfl">수수료</td><td class="pfv">${W(c.fee)}</td><td class="pfv">${W(c.fee)}</td></tr>
             ${transferRow}
 
@@ -862,7 +868,8 @@ function renderProfit(r) {
         <div class="pf-title">입력값</div>
         <table class="pft">
           <tr><td class="pfl">보험료 (연간)</td><td class="pfv">${W(r.input.insurance)}</td></tr>
-          <tr><td class="pfl">예상 매각가 (처분이익)</td><td class="pfv">${W(r.input.salePrice)}</td></tr>
+          <tr><td class="pfl">예상 매각가 (48개월)</td><td class="pfv">${W(r.input.salePrice48)}</td></tr>
+          <tr><td class="pfl">예상 매각가 (60개월)</td><td class="pfv">${W(r.input.salePrice60)}</td></tr>
         </table>
       </div>
       <div class="pf-section">
@@ -882,7 +889,7 @@ function renderProfit(r) {
 
             <tr class="pf2sec"><td colspan="3">총 수익</td></tr>
             <tr><td class="pfl">총 렌트료 수익 (진입렌트료 × 기간)</td><td class="pfv">${W(sm.totalRentRevenue48)}</td><td class="pfv">${W(sm.totalRentRevenue60)}</td></tr>
-            <tr><td class="pfl">처분이익 (예상 매각가)</td><td class="pfv">${W(sm.disposalProfit)}</td><td class="pfv">${W(sm.disposalProfit)}</td></tr>
+            <tr><td class="pfl">처분이익 (예상 매각가)</td><td class="pfv">${W(sm.disposalProfit48)}</td><td class="pfv">${W(sm.disposalProfit60)}</td></tr>
             <tr class="pf2profit"><td class="pfl">총 수익 (렌트료수익 + 처분이익)</td><td class="pfv">${W(sm.totalRevenue48)}</td><td class="pfv">${W(sm.totalRevenue60)}</td></tr>
           </tbody>
         </table>
@@ -942,39 +949,47 @@ function calcBreach() {
 
   const c = r.cost;
   const finalRent = period === 48 ? c.finalRent48 : c.finalRent60;
-  const carTax   = period === 48 ? c.carTax48 : c.carTax60;
-  const deposit  = r.input.carPrice * r.input.depositRate;
+  const deposit   = Math.round(r.input.carPrice * r.input.depositRate);
+  const gps       = period === 48 ? c.gps48 : c.gps60;
 
-  const remaining = period - month;           // 남은 개월수
-  const remainLease = finalRent * remaining;  // 남은 렌트료
-  const breach = Math.round(remainLease * 0.3); // 위약채권 = 남은렌트료 × 30%
+  const remaining   = period - month;        // 남은 개월수
+  const paidRatio   = month / period;        // 납입 비율
+  const remainRatio = 1 - paidRatio;         // 남은 비율
 
-  // 손실금액 = 취득세 + 수수료 + 남은 조달이자 (비례)
-  const acqTax = c.acqTax;
-  const fee = c.fee;
-  const fundMonthly = Math.round(c.fundInterest / 48);
-  const remainFundInterest = fundMonthly * remaining;
-  const totalLoss = acqTax + fee + remainFundInterest;
+  // 위약채권 = 남은렌트료 × 30% - 보증금
+  const remainLease = finalRent * remaining;
+  const breachClaim = Math.round(remainLease * 0.3);
+  const netBreachClaim = breachClaim - deposit;
 
-  const netBreach = breach - totalLoss; // 위약채권 - 손실금액
-  const isSafe = netBreach >= 0;
+  // 손실금액 = (취득세 + 채권 + 서비스비용 + 조달이자 전체) × 남은비율
+  const totalCost = c.acqTax + c.bond + c.agency + c.fundInterest;
+  const totalLoss = Math.round(totalCost * remainRatio);
+
+  // 최종 손익 = 위약채권(보증금차감) - 손실금액
+  const netResult = netBreachClaim - totalLoss;
+  const isSafe = netResult >= 0;
 
   const tbody = document.getElementById("breach-tbody");
   tbody.innerHTML = `
     <tr class="pf2sec"><td colspan="3">위약채권</td></tr>
-    <tr><td class="pfl">남은 기간</td><td class="pfv">${remaining}개월</td><td class="pfv">해지월 ${month}개월 후</td></tr>
+    <tr><td class="pfl">납입 개월 / 남은 개월</td><td class="pfv">${month}개월 납입</td><td class="pfv">${remaining}개월 남음</td></tr>
     <tr><td class="pfl">남은 렌트료 합계</td><td class="pfv">${W(remainLease)}</td><td class="pfv">월 ${W(finalRent)} × ${remaining}개월</td></tr>
-    <tr class="pf2hl"><td class="pfl">위약채권 (30%)</td><td class="pfv">${W(breach)}</td><td class="pfv">남은렌트료 × 30%</td></tr>
-    <tr class="pf2sec"><td colspan="3">손실금액</td></tr>
-    <tr><td class="pfl">취득세</td><td class="pfv">${W(acqTax)}</td><td class="pfv"></td></tr>
-    <tr><td class="pfl">수수료</td><td class="pfv">${W(fee)}</td><td class="pfv"></td></tr>
-    <tr><td class="pfl">남은 조달이자</td><td class="pfv">${W(remainFundInterest)}</td><td class="pfv">월 ${W(fundMonthly)} × ${remaining}개월</td></tr>
+    <tr><td class="pfl">위약채권 (남은렌트료 × 30%)</td><td class="pfv">${W(breachClaim)}</td><td class="pfv"></td></tr>
+    <tr><td class="pfl">보증금 차감</td><td class="pfv">-${W(deposit)}</td><td class="pfv"></td></tr>
+    <tr class="pf2hl"><td class="pfl">실 위약채권</td><td class="pfv">${W(netBreachClaim)}</td><td class="pfv"></td></tr>
+
+    <tr class="pf2sec"><td colspan="3">손실금액 (전체비용 × ${(remainRatio*100).toFixed(1)}%)</td></tr>
+    <tr><td class="pfl">취득세 (비례)</td><td class="pfv">${W(Math.round(c.acqTax * remainRatio))}</td><td class="pfv">${W(c.acqTax)} × ${(remainRatio*100).toFixed(1)}%</td></tr>
+    <tr><td class="pfl">채권 (비례)</td><td class="pfv">${W(Math.round(c.bond * remainRatio))}</td><td class="pfv">${W(c.bond)} × ${(remainRatio*100).toFixed(1)}%</td></tr>
+    <tr><td class="pfl">서비스비용 (비례)</td><td class="pfv">${W(Math.round(c.agency * remainRatio))}</td><td class="pfv">${W(c.agency)} × ${(remainRatio*100).toFixed(1)}%</td></tr>
+    <tr><td class="pfl">조달이자 (비례)</td><td class="pfv">${W(Math.round(c.fundInterest * remainRatio))}</td><td class="pfv">${W(c.fundInterest)} × ${(remainRatio*100).toFixed(1)}%</td></tr>
     <tr class="pf2hl"><td class="pfl">총 손실금액</td><td class="pfv">${W(totalLoss)}</td><td class="pfv"></td></tr>
-    <tr class="pf2sec"><td colspan="3">위약 안전범위 판단</td></tr>
+
+    <tr class="pf2sec"><td colspan="3">위약 손익 판단</td></tr>
     <tr class="${isSafe ? 'pf2profit' : 'pf2danger'}">
-      <td class="pfl">위약채권 − 손실금액</td>
-      <td class="pfv">${W(netBreach)}</td>
-      <td class="pfv">${isSafe ? '✅ 안전범위 (이익)' : '❌ 위험범위 (손실)'}</td>
+      <td class="pfl">실 위약채권 − 손실금액</td>
+      <td class="pfv">${W(netResult)}</td>
+      <td class="pfv">${isSafe ? '✅ 안전 (회수 가능)' : '❌ 위험 (손실 발생)'}</td>
     </tr>
   `;
   document.getElementById("breach-result").style.display = "block";
