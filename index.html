@@ -607,7 +607,7 @@ function renderResultTable(r) {
         <tr><td class="sb">대여기간</td><td class="vc">48개월</td><td class="vc">60개월</td></tr>
         <tr><td class="sb">만기처리</td><td class="vc">구입형(인수형)</td><td class="vc">구입형(인수형)</td></tr>
         <tr><td class="sb">운전자나이</td><td class="vc">고객 설정</td><td class="vc">고객 설정</td></tr>
-        <tr><td class="sb">약정거리</td><td class="vc" colspan="2" style="font-size:12px">중도 해지 시에만 적용한다</td></tr>
+        <tr><td class="sb">약정거리</td><td class="vc" colspan="2" style="font-size:12px">중도 해지 시에만 적용</td></tr>
         <tr class="sec"><td colspan="3">비용정보</td></tr>
         <tr><td class="sb">차량가격</td><td class="vr">${W(l.price)}</td><td class="vr">${W(l.price)}</td></tr>
         <tr><td class="sb">보증금 (${(inp.depositRate*100).toFixed(0)}%)</td><td class="vr">${W(l.deposit)}</td><td class="vr">${W(l.deposit)}</td></tr>
@@ -620,7 +620,7 @@ function renderResultTable(r) {
         <tr><td class="sb">선납금차감</td><td class="vr">${N(l.deduct48)}원</td><td class="vr">${N(l.deduct60)}원</td></tr>
         <tr class="red"><td class="lb">실납입 대여료</td><td class="vr">${W(l.final48)}</td><td class="vr">${W(l.final60)}</td></tr>
         <tr class="sec"><td colspan="3">만기 시</td></tr>
-        <tr><td class="sb">만기인수금</td><td class="vr" colspan="2" style="text-align:center">보증금 상계처리 (추가 납부 없음)</td></tr>
+        <tr><td class="sb">만기인수금</td><td class="vr" colspan="2" style="text-align:center">보증금과 상계처리되어 추가 납부 없음</td></tr>
       </tbody>
     </table>
   `;
@@ -675,7 +675,7 @@ function renderQuote() {
         <tr><td class="ql">정비상품</td><td>자가정비</td><td>자가정비</td></tr>
         <tr><td class="ql">운전자나이</td><td>고객 설정</td><td>고객 설정</td></tr>
         <tr class="qins"><td class="ql">보험가입사항</td><td colspan="2">[고객 의무가입 조건] 대인Ⅱ(무한), 대물 1억 이상, 자기차량손해(차량가액100%)</td></tr>
-        <tr class="qsub"><td class="ql">약정거리</td><td colspan="2">중도 해지 시에만 적용한다</td></tr>
+        <tr class="qsub"><td class="ql">약정거리</td><td colspan="2">중도 해지 시에만 적용</td></tr>
         <tr class="qsub"><td class="ql">보증금 (${(inp.depositRate*100).toFixed(0)}%)</td><td>${W(l.deposit)}</td><td>${W(l.deposit)}</td></tr>
         <tr class="qsub"><td class="ql">선납금 (${(inp.prepayRate*100).toFixed(0)}%)</td><td>${W(l.prepay)}</td><td>${W(l.prepay)}</td></tr>
         <tr class="qsub"><td class="ql">만기인수가</td><td>${W(l.deposit)}</td><td>${W(l.deposit)}</td></tr>
