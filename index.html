@@ -279,12 +279,12 @@ table.qt tr.qins td{background:#eef2fd;font-size:11px;color:#4a5578;}
               <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-weight:700;color:var(--primary);">
                 <input type="radio" name="quoteType" id="qt1" value="1" checked
                   style="width:16px;height:16px;accent-color:var(--primary);">
-                견적 1 <span style="font-size:11px;color:var(--text2);font-weight:400;">(자차충당금 포함)</span>
+                견적 1
               </label>
               <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-weight:700;color:var(--text2);">
                 <input type="radio" name="quoteType" id="qt2" value="2"
                   style="width:16px;height:16px;accent-color:var(--primary);">
-                견적 2 <span style="font-size:11px;color:var(--text2);font-weight:400;">(자차충당금 미포함)</span>
+                견적 2
               </label>
             </div>
           </div>
@@ -632,7 +632,6 @@ function renderResultTable(r) {
         <tr><td class="sb">차량가격</td><td class="vr">${W(l.price)}</td><td class="vr">${W(l.price)}</td></tr>
         <tr><td class="sb">보증금 (${(inp.depositRate*100).toFixed(0)}%)</td><td class="vr">${W(l.deposit)}</td><td class="vr">${W(l.deposit)}</td></tr>
         <tr><td class="sb">선납금 (${(inp.prepayRate*100).toFixed(0)}%)</td><td class="vr">${W(l.prepay)}</td><td class="vr">${W(l.prepay)}</td></tr>
-        <tr><td class="sb">만기인수가</td><td class="vr">${W(l.deposit)}</td><td class="vr">${W(l.deposit)}</td></tr>
         <tr class="sec"><td colspan="3">월 대여료</td></tr>
         <tr><td class="sb">공급가액</td><td class="vr">${W(l.supply48)}</td><td class="vr">${W(l.supply60)}</td></tr>
         <tr><td class="sb">부가세</td><td class="vr">${W(l.vat48)}</td><td class="vr">${W(l.vat60)}</td></tr>
