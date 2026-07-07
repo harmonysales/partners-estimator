@@ -825,7 +825,7 @@ function renderProfit(r) {
             <tr><td class="pfl">취득세</td><td class="pfv">${W(c.acqTax)}</td><td class="pfv">${W(c.acqTax)}</td></tr>
             <tr><td class="pfl">채권</td><td class="pfv">${W(c.bond)}</td><td class="pfv">${W(c.bond)}</td></tr>
             <tr><td class="pfl">서비스비용</td><td class="pfv">${W(c.agency48)}</td><td class="pfv">${W(c.agency60)}</td></tr>
-            <tr><td class="pfl">자동차세 ${c.carTaxDiscount > 0 ? `<span style="font-size:11px;color:#e67e22;">(차령 경감 ${(c.carTaxDiscount*100).toFixed(0)}% 적용)</span>` : ''}</td><td class="pfv">${W(c.carTax48)}</td><td class="pfv">${W(c.carTax60)}</td></tr>
+            <tr><td class="pfl">자동차세 <span style="font-size:11px;color:#e67e22;">${c.carTaxDiscount > 0 ? '(차령 경감 ' + (c.carTaxDiscount*100).toFixed(0) + '% 적용)' : ''}</span></td><td class="pfv">${W(c.carTax48)}</td><td class="pfv">${W(c.carTax60)}</td></tr>
             <tr class="pf2hl"><td class="pfl">원비용 (차량가+취득세+채권+서비스비용−보증금+자동차세)</td><td class="pfv">${W(c.realCost48)}</td><td class="pfv">${W(c.realCost60)}</td></tr>
 
             <tr class="pf2sec"><td colspan="3">조달이자</td></tr>
