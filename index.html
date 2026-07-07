@@ -242,9 +242,9 @@ table.qt tr.qins td{background:#eef2fd;font-size:11px;color:#4a5578;}
           <div class="ip-row">
             <label>보증금율</label>
             <div class="rbg">
-              <button class="rbtn" onclick="setDep(10,this)">10%</button>
+              <button class="rbtn on" onclick="setDep(10,this)">10%</button>
               <button class="rbtn" onclick="setDep(15,this)">15%</button>
-              <button class="rbtn on" onclick="setDep(20,this)">20%</button>
+              <button class="rbtn" onclick="setDep(20,this)">20%</button>
             </div>
           </div>
           <div class="ip-row" style="align-items:flex-start;margin-top:8px;">
@@ -409,7 +409,7 @@ table.qt tr.qins td{background:#eef2fd;font-size:11px;color:#4a5578;}
 const WORKER_URL = "https://lease-estimator-api.hmn1234.workers.dev";
 let token = sessionStorage.getItem("lt") || null;
 let adminToken = sessionStorage.getItem("at") || null;
-let vehicles = [], selV = null, depRate = 20, CR = null;
+let vehicles = [], selV = null, depRate = 10, CR = null;
 let pMode = "pct";
 window.onload = () => { if (token) showApp(); };
 document.getElementById("pw").addEventListener("keydown", e => { if(e.key==="Enter") doLogin(); });
@@ -522,8 +522,9 @@ function onExtraP(val) {
   const price = parseInt((document.getElementById("i-price")._raw || document.getElementById("i-price").value).replace(/,/g,"")) || (selV ? selV.기본가격 : 0) || 0;
   const note = document.getElementById("ep-note");
   if (val > 0 && price > 0) {
-    const fee = Math.round(price * parseInt(val) / 100);
-    note.textContent = `수수료: ${fee.toLocaleString()}원`;
+    const feeRaw = Math.round(price * parseInt(val) / 100);
+    const feeCeil = Math.ceil(feeRaw / 1000) * 1000;
+    note.textContent = `수수료: ${feeCeil.toLocaleString()}원 (원액 ${feeRaw.toLocaleString()}원)`;
   } else {
     note.textContent = "";
   }
@@ -763,6 +764,7 @@ async function submitProfitInput() {
         price, depositRate: depRate/100,
         prepayRate: parseInt(document.getElementById("ps").value) / 100,
         extraPRate: parseInt(document.getElementById("eps").value) / 100,
+        regdate: document.getElementById("i-regdate").value || null,
         insurance: insuranceInput || 0,
         salePrice48: salePriceInput48 || 0,
         salePrice60: salePriceInput60 || 0,
@@ -823,7 +825,7 @@ function renderProfit(r) {
             <tr><td class="pfl">취득세</td><td class="pfv">${W(c.acqTax)}</td><td class="pfv">${W(c.acqTax)}</td></tr>
             <tr><td class="pfl">채권</td><td class="pfv">${W(c.bond)}</td><td class="pfv">${W(c.bond)}</td></tr>
             <tr><td class="pfl">서비스비용</td><td class="pfv">${W(c.agency48)}</td><td class="pfv">${W(c.agency60)}</td></tr>
-            <tr><td class="pfl">자동차세</td><td class="pfv">${W(c.carTax48)}</td><td class="pfv">${W(c.carTax60)}</td></tr>
+            <tr><td class="pfl">자동차세 ${c.carTaxDiscount > 0 ? `<span style="font-size:11px;color:#e67e22;">(차령 경감 ${(c.carTaxDiscount*100).toFixed(0)}% 적용)</span>` : ''}</td><td class="pfv">${W(c.carTax48)}</td><td class="pfv">${W(c.carTax60)}</td></tr>
             <tr class="pf2hl"><td class="pfl">원비용 (차량가+취득세+채권+서비스비용−보증금+자동차세)</td><td class="pfv">${W(c.realCost48)}</td><td class="pfv">${W(c.realCost60)}</td></tr>
 
             <tr class="pf2sec"><td colspan="3">조달이자</td></tr>
