@@ -524,7 +524,7 @@ function onExtraP(val) {
   if (val > 0 && price > 0) {
     const feeRaw = Math.round(price * parseInt(val) / 100);
     const feeCeil = Math.ceil(feeRaw / 1000) * 1000;
-    note.textContent = `수수료: ${feeCeil.toLocaleString()}원 (원액 ${feeRaw.toLocaleString()}원)`;
+    note.textContent = `수수료: ${feeCeil.toLocaleString()}원`;
   } else {
     note.textContent = "";
   }
