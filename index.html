@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>하모니렌트카 파트너즈 견적기(본사용)</title>
+<title>하모니렌트카 파트너즈 견적기</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap');
 :root {
@@ -191,8 +191,9 @@ table.qt tr.qins td{background:#eef2fd;font-size:11px;color:#4a5578;}
 <div id="login-screen">
   <div class="lbox">
     <div class="logo">HARMONY RENTCAR</div>
-    <h1>파트너즈 견적기(본사용)</h1>
+    <h1>파트너즈 견적기 (본사용)</h1>
     <p>본 견적기는 본사용으로, 외부 공유 불가합니다.</p>
+    <input type="text" id="uid" placeholder="아이디 입력" style="margin-bottom:8px;"/>
     <input type="password" id="pw" placeholder="비밀번호 입력"/>
     <button onclick="doLogin()">로그인</button>
     <div id="lerr"></div>
@@ -203,7 +204,7 @@ table.qt tr.qins td{background:#eef2fd;font-size:11px;color:#4a5578;}
     <div class="h-left">
       <div class="h-logo">HARMONY<br>RENTCAR</div>
       <div class="h-div"></div>
-      <div class="h-title">파트너즈 견적기 · 구입형 리스(본사용)</div>
+      <div class="h-title">파트너즈 견적기 · 구입형 리스</div>
     </div>
     <button class="h-out" onclick="doLogout()">로그아웃</button>
   </header>
@@ -416,22 +417,25 @@ window.onload = () => { if (token) showApp(); };
 document.getElementById("pw").addEventListener("keydown", e => { if(e.key==="Enter") doLogin(); });
 async function doLogin() {
   const pw = document.getElementById("pw").value;
+  const uid = document.getElementById("uid").value.trim();
   const err = document.getElementById("lerr");
   err.textContent = "";
+  if (!uid) { err.textContent = "아이디를 입력하세요."; return; }
   if (!pw) { err.textContent = "비밀번호를 입력하세요."; return; }
   try {
     const r = await fetch(`${WORKER_URL}/api/login`, {
-      method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({password:pw})
+      method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({id:uid, password:pw})
     });
     const d = await r.json();
     if (d.success) { token = d.token; sessionStorage.setItem("lt", token); showApp(); }
-    else err.textContent = d.message || "비밀번호가 틀렸습니다.";
+    else err.textContent = d.message || "아이디 또는 비밀번호가 틀렸습니다.";
   } catch { err.textContent = "서버 연결 실패"; }
 }
 function doLogout() {
   token = null; sessionStorage.removeItem("lt");
   document.getElementById("login-screen").style.display = "flex";
   document.getElementById("app").style.display = "none";
+  document.getElementById("uid").value = "";
   document.getElementById("pw").value = "";
 }
 async function showApp() {
