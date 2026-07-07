@@ -273,21 +273,6 @@ table.qt tr.qins td{background:#eef2fd;font-size:11px;color:#4a5578;}
               <div id="ep-note" style="font-size:10px;color:var(--muted);margin-top:2px;min-height:14px;"></div>
             </div>
           </div>
-          <div class="ip-row" style="margin-top:10px;">
-            <label>견적 유형</label>
-            <div style="display:flex;gap:14px;align-items:center;padding-top:4px;">
-              <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-weight:700;color:var(--primary);">
-                <input type="radio" name="quoteType" id="qt1" value="1" checked
-                  style="width:16px;height:16px;accent-color:var(--primary);">
-                견적 1
-              </label>
-              <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-weight:700;color:var(--text2);">
-                <input type="radio" name="quoteType" id="qt2" value="2"
-                  style="width:16px;height:16px;accent-color:var(--primary);">
-                견적 2
-              </label>
-            </div>
-          </div>
         </div>
       </div>
       <div class="calc-wrap">
@@ -574,13 +559,12 @@ async function doCalc() {
   const price = parseInt((document.getElementById("i-price")._raw || document.getElementById("i-price").value).replace(/,/g,"")) || selV.기본가격 || 0;
   const preRate = parseInt(document.getElementById("ps").value) / 100;
   const extraPRate = parseInt(document.getElementById("eps").value) / 100;
-  const useCarReserve = document.getElementById("qt1").checked;
   try {
     const body = {
       token,
       brandCode: selV.브랜드코드, seriesCode: selV.시리즈코드,
       modelCode: selV.모델코드, lineupCode: selV.라인업코드,
-      price, depositRate: depRate/100, prepayRate: preRate, extraPRate, useCarReserve,
+      price, depositRate: depRate/100, prepayRate: preRate, extraPRate,
       regdate: document.getElementById("i-regdate").value,
       mileage: (document.getElementById("i-mileage")._raw || document.getElementById("i-mileage").value).replace(/,/g,"")
     };
@@ -697,7 +681,7 @@ function renderQuote() {
         <tr class="qsub"><td class="ql">약정거리</td><td colspan="2">중도 해지 시에만 적용</td></tr>
         <tr class="qsub"><td class="ql">보증금 (${(inp.depositRate*100).toFixed(0)}%)</td><td>${W(l.deposit)}</td><td>${W(l.deposit)}</td></tr>
         <tr class="qsub"><td class="ql">선납금 (${(inp.prepayRate*100).toFixed(0)}%)</td><td>${W(l.prepay)}</td><td>${W(l.prepay)}</td></tr>
-        <tr class="qsub"><td class="ql">만기인수가<br> (보증금 상계처리)</td><td>${W(l.deposit)}</td><td>${W(l.deposit)}</td></tr>
+        <tr class="qsub"><td class="ql">만기인수가<br><span style="font-size:10px;color:#888;">(보증금 상계처리)</span></td><td>${W(l.deposit)}</td><td>${W(l.deposit)}</td></tr>
         <tr><td class="ql">공급가액</td><td>${W(l.supply48)}</td><td>${W(l.supply60)}</td></tr>
         <tr><td class="ql">부가세</td><td>${W(l.vat48)}</td><td>${W(l.vat60)}</td></tr>
         <tr><td class="ql">월 대여료</td><td>${W(l.monthlyLease48)}</td><td>${W(l.monthlyLease60)}</td></tr>
@@ -797,7 +781,6 @@ async function submitProfitInput() {
         modelCode: selV.모델코드, lineupCode: selV.라인업코드,
         price, depositRate: depRate/100,
         prepayRate: parseInt(document.getElementById("ps").value) / 100,
-        useCarReserve: document.getElementById("qt1").checked,
         insurance: insuranceInput || 0,
         salePrice48: salePriceInput48 || 0,
         salePrice60: salePriceInput60 || 0,
@@ -868,9 +851,7 @@ function renderProfit(r) {
             <tr class="pf2sec"><td colspan="3">수익 / 차감비용</td></tr>
             <tr><td class="pfl">이자수익 (PMT 기준)</td><td class="pfv">${W(c.interestCost48)}</td><td class="pfv">${W(c.interestCost60)}</td></tr>
             <tr><td class="pfl">GPS비용 (총액)</td><td class="pfv">${W(c.gps48)}</td><td class="pfv">${W(c.gps60)}</td></tr>
-            <tr><td class="pfl">수수료</td><td class="pfv">${W(c.fee)}</td><td class="pfv">${W(c.fee)}</td></tr>
-            ${c.carReserve ? `<tr><td class="pfl">자차충당금 (월)</td><td class="pfv">${W(c.carReserve)}</td><td class="pfv">${W(c.carReserve)}</td></tr>` : '<tr><td class="pfl">자차충당금</td><td class="pfv" colspan="2" style="color:var(--muted)">미적용 (견적2)</td></tr>'}
-            ${transferRow}
+            <tr><td class="pfl">수수료</td><td class="pfv">${W(c.fee)}</td><td class="pfv">${W(c.fee)}</td></tr>            ${transferRow}
 
             <tr class="pf2hl"><td class="pfl">최종렌트료 (실납입)</td><td class="pfv">${W(c.finalRent48)}</td><td class="pfv">${W(c.finalRent60)}</td></tr>
             <tr class="pf2profit"><td class="pfl">순 이익 (총)</td><td class="pfv">${W(pf.netProfit48)}</td><td class="pfv">${W(pf.netProfit60)}</td></tr>
