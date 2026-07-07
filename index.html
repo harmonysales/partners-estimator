@@ -216,10 +216,8 @@ table.qt tr.qins td{background:#eef2fd;font-size:11px;color:#4a5578;}
           <div class="ip-btitle">▢ 차량정보 (선택, 입력항목)</div>
           <div class="ip-row"><label>제조사</label>
             <select id="s-brand" onchange="onBrand()"><option value="">선택</option></select></div>
-          <div class="ip-row"><label>모델</label>
+          <div class="ip-row"><label>시리즈</label>
             <select id="s-series" onchange="onSeries()" disabled><option value="">선택</option></select></div>
-          <div class="ip-row"><label>세부모델</label>
-            <select id="s-model" onchange="onModel()" disabled><option value="">선택</option></select></div>
           <div class="ip-row"><label>라인업</label>
             <select id="s-lineup" onchange="onLineup()" disabled><option value="">선택</option></select></div>
           <div class="ip-row"><label>차량등록일</label>
@@ -471,8 +469,7 @@ function onBrand() {
   s.innerHTML = '<option value="">선택</option>';
   uniqBy(f,"시리즈코드","시리즈명").forEach(([c,n]) => s.innerHTML += `<option value="${c}">${n}</option>`);
   s.disabled = !bc;
-  document.getElementById("s-model").innerHTML = '<option value="">선택</option>';
-  document.getElementById("s-model").disabled = true;
+
   document.getElementById("s-lineup").innerHTML = '<option value="">선택</option>';
   document.getElementById("s-lineup").disabled = true;
   clearDetail(); updateBtn();
@@ -481,25 +478,6 @@ function onSeries() {
   const bc = document.getElementById("s-brand").value;
   const sc = document.getElementById("s-series").value;
   const f = vehicles.filter(v => v.브랜드코드===bc && v.시리즈코드===sc);
-  const sm = document.getElementById("s-model");
-  sm.innerHTML = '<option value="">선택</option>';
-  const seen = new Set();
-  f.forEach(v => {
-    if (!seen.has(v.모델코드)) {
-      seen.add(v.모델코드);
-      sm.innerHTML += `<option value="${v.모델코드}">${v.모델명}</option>`;
-    }
-  });
-  sm.disabled = !sc;
-  document.getElementById("s-lineup").innerHTML = '<option value="">선택</option>';
-  document.getElementById("s-lineup").disabled = true;
-  clearDetail(); updateBtn();
-}
-function onModel() {
-  const bc = document.getElementById("s-brand").value;
-  const sc = document.getElementById("s-series").value;
-  const mc = document.getElementById("s-model").value;
-  const f = vehicles.filter(v => v.브랜드코드===bc && v.시리즈코드===sc && v.모델코드===mc);
   const sl = document.getElementById("s-lineup");
   sl.innerHTML = '<option value="">선택</option>';
   const seen = new Set();
@@ -509,15 +487,14 @@ function onModel() {
       sl.innerHTML += `<option value="${v.라인업코드}">${v.라인업명}</option>`;
     }
   });
-  sl.disabled = !mc;
+  sl.disabled = !sc;
   clearDetail(); updateBtn();
 }
 function onLineup() {
   const bc = document.getElementById("s-brand").value;
   const sc = document.getElementById("s-series").value;
-  const mc = document.getElementById("s-model").value;
   const lc = document.getElementById("s-lineup").value;
-  const m = vehicles.find(v => v.브랜드코드===bc && v.시리즈코드===sc && v.모델코드===mc && v.라인업코드===lc);
+  const m = vehicles.find(v => v.브랜드코드===bc && v.시리즈코드===sc && v.라인업코드===lc);
   if (m) { selV = m; fillDetail(m); } else { selV = null; clearDetail(); }
   updateBtn();
 }
@@ -567,7 +544,7 @@ async function doCalc() {
     const body = {
       token,
       brandCode: selV.브랜드코드, seriesCode: selV.시리즈코드,
-      modelCode: selV.모델코드, lineupCode: selV.라인업코드,
+      modelCode: null, lineupCode: selV.라인업코드,
       price, depositRate: depRate/100, prepayRate: preRate, extraPRate,
       regdate: document.getElementById("i-regdate").value,
       mileage: (document.getElementById("i-mileage")._raw || document.getElementById("i-mileage").value).replace(/,/g,"")
@@ -782,7 +759,7 @@ async function submitProfitInput() {
       body: JSON.stringify({
         adminToken,
         brandCode: selV.브랜드코드, seriesCode: selV.시리즈코드,
-        modelCode: selV.모델코드, lineupCode: selV.라인업코드,
+        modelCode: null, lineupCode: selV.라인업코드,
         price, depositRate: depRate/100,
         prepayRate: parseInt(document.getElementById("ps").value) / 100,
         extraPRate: parseInt(document.getElementById("eps").value) / 100,
@@ -855,6 +832,8 @@ function renderProfit(r) {
 
             <tr class="pf2sec"><td colspan="3">수익 / 차감비용</td></tr>
             <tr><td class="pfl">이자수익 (PMT 기준)</td><td class="pfv">${W(c.interestCost48)}</td><td class="pfv">${W(c.interestCost60)}</td></tr>
+            <tr><td class="pfl">올림분 수익 <span style="font-size:11px">(월대여료 올림분 × 기간 ÷ 1.1)</span></td><td class="pfv">+${W(c.roundingSurplus48)}</td><td class="pfv">+${W(c.roundingSurplus60)}</td></tr>
+            <tr><td class="pfl">추가P 잔여액 <span style="font-size:11px">(추가P월×기간 - 추가P총액) ÷ 1.1</span></td><td class="pfv">+${W(c.extraPResidual48)}</td><td class="pfv">+${W(c.extraPResidual60)}</td></tr>
             <tr><td class="pfl">GPS비용 (총액)</td><td class="pfv">${W(c.gps48)}</td><td class="pfv">${W(c.gps60)}</td></tr>
             <tr><td class="pfl">수수료</td><td class="pfv">${W(c.fee)}</td><td class="pfv">${W(c.fee)}</td></tr>            ${transferRow}
 
