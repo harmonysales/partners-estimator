@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>하모니렌트카 파트너즈 견적기(본사용)</title>
+<title>하모니렌트카 파트너즈 견적기 (본사용)</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap');
 :root {
@@ -204,7 +204,7 @@ table.qt tr.qins td{background:#eef2fd;font-size:11px;color:#4a5578;}
     <div class="h-left">
       <div class="h-logo">HARMONY<br>RENTCAR</div>
       <div class="h-div"></div>
-      <div class="h-title">파트너즈 견적기 · 구입형 리스(본사용)</div>
+      <div class="h-title">파트너즈 견적기 (본사용) · 구입형 리스</div>
     </div>
     <button class="h-out" onclick="doLogout()">로그아웃</button>
   </header>
@@ -614,7 +614,7 @@ function renderResultTable(r) {
         <tr><td class="sb">상품명</td><td class="vc">구입형 리스</td><td class="vc">구입형 리스</td></tr>
         <tr><td class="sb">대여기간</td><td class="vc">48개월</td><td class="vc">60개월</td></tr>
         <tr><td class="sb">만기처리</td><td class="vc">구입형(인수형)</td><td class="vc">구입형(인수형)</td></tr>
-        <tr><td class="sb">운전자나이</td><td class="vc">고객 설정</td><td class="vc">고객 설정</td></tr>
+        <tr><td class="sb">운전자나이</td><td class="vc" colspan="2">가입 시, 만26세이상 ~ 만69세이하 범위 내 선택</td></tr>
         <tr><td class="sb">약정거리</td><td class="vc" colspan="2" style="font-size:12px">중도 해지 시에만 적용</td></tr>
         <tr class="sec"><td colspan="3">비용정보</td></tr>
         <tr><td class="sb">차량가격</td><td class="vr">${W(l.price)}</td><td class="vr">${W(l.price)}</td></tr>
@@ -680,8 +680,8 @@ function renderQuote() {
         <tr><td class="ql">대여기간</td><td>48개월</td><td>60개월</td></tr>
         <tr><td class="ql">만기처리</td><td>구입형(인수형)</td><td>구입형(인수형)</td></tr>
         <tr><td class="ql">정비상품</td><td>자가정비</td><td>자가정비</td></tr>
-        <tr><td class="ql">운전자나이</td><td>고객 설정</td><td>고객 설정</td></tr>
-        <tr class="qins"><td class="ql">보험가입사항</td><td colspan="2">[고객 의무가입 조건] 대인Ⅱ(무한), 대물 1억 이상, 자기차량손해(차량가액100%)</td></tr>
+        <tr><td class="ql">운전자나이</td><td colspan="2">가입 시, 만26세이상 ~ 만69세이하 범위 내 선택</td></tr>
+        <tr class="qins"><td class="ql">보험가입사항</td><td colspan="2">[고객 의무가입 조건] 대인 II(무한), 대물 1억 이상</td></tr>
         <tr class="qsub"><td class="ql">약정거리</td><td colspan="2">중도 해지 시에만 적용</td></tr>
         <tr class="qsub"><td class="ql">보증금 (${(inp.depositRate*100).toFixed(0)}%)</td><td>${W(l.deposit)}</td><td>${W(l.deposit)}</td></tr>
         <tr class="qsub"><td class="ql">선납금 (${(inp.prepayRate*100).toFixed(0)}%)</td><td>${W(l.prepay)}</td><td>${W(l.prepay)}</td></tr>
