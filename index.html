@@ -857,9 +857,7 @@ function renderProfit(r) {
             <tr class="pf2hl"><td class="pfl">실납입 대여료</td>
               <td class="pfv">${W(c.finalRent48)}</td>
               <td class="pfv">${W(c.finalRent60)}</td></tr>
-            <tr><td class="pfl">공급가액 / 부가세</td>
-              <td class="pfv">${W(Math.round(c.finalRent48/1.1))} / ${W(c.finalRent48-Math.round(c.finalRent48/1.1))}</td>
-              <td class="pfv">${W(Math.round(c.finalRent60/1.1))} / ${W(c.finalRent60-Math.round(c.finalRent60/1.1))}</td></tr>
+            <tr><td class="pfl">공급가액 / 부가세</td><td class="pfv">${W(Math.round(c.finalRent48/1.1))} / ${W(c.finalRent48-Math.round(c.finalRent48/1.1))}</td><td class="pfv">${W(Math.round(c.finalRent60/1.1))} / ${W(c.finalRent60-Math.round(c.finalRent60/1.1))}</td></tr>
 
             <tr class="pf2sec"><td colspan="3">총 수익</td></tr>
             <tr><td class="pfl">렌트료 수익 <span style="font-size:11px">(실납입공급가 × 기간)</span></td>
