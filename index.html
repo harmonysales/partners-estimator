@@ -830,7 +830,7 @@ function renderProfit(r) {
 
             <tr class="pf2sec"><td colspan="3">조달이자</td></tr>
             <tr><td class="pfl">조달기준액 (차량가 × ${(r.input.fundRatio*100).toFixed(0)}%)</td><td class="pfv">${W(c.vehicleCost)}</td><td class="pfv">${W(c.vehicleCost)}</td></tr>
-            <tr><td class="pfl">조달이자 (7%, 48개월 PMT)</td><td class="pfv">${W(c.fundInterest)}</td><td class="pfv">${W(c.fundInterest)}</td></tr>
+            <tr><td class="pfl">조달이자 (7%, 기간별 PMT)</td><td class="pfv">${W(c.fundInterest48)}</td><td class="pfv">${W(c.fundInterest60)}</td></tr>
 
             <tr class="pf2sec"><td colspan="3">수익 / 차감비용</td></tr>
             <tr><td class="pfl">이자수익 (PMT 기준)</td><td class="pfv">${W(c.interestCost48)}</td><td class="pfv">${W(c.interestCost60)}</td></tr>
@@ -869,7 +869,7 @@ function renderProfit(r) {
             <tr class="pf2hl"><td class="pfl">일반시장 진입비용 (총여유자금 − 자동차세)</td><td class="pfv">${W(sm.marketEntryCost48)}</td><td class="pfv">${W(sm.marketEntryCost60)}</td></tr>
 
             <tr class="pf2sec"><td colspan="3">일반시장 진입 렌트료</td></tr>
-            <tr><td class="pfl">월 조달이자 (PMT 7%/12)</td><td class="pfv">${W(Math.round(c.fundInterest/48))}</td><td class="pfv">${W(Math.round(c.fundInterest/48))}</td></tr>
+            <tr><td class="pfl">월 조달이자 (PMT 7%/12)</td><td class="pfv">${W(Math.round(c.fundInterest48/48))}</td><td class="pfv">${W(Math.round(c.fundInterest60/60))}</td></tr>
             <tr><td class="pfl">보험료/월</td><td class="pfv">${W(Math.round(r.input.insurance/12))}</td><td class="pfv">${W(Math.round(r.input.insurance/12))}</td></tr>
             <tr><td class="pfl">월 여유자금 차감</td><td class="pfv">-${W(sm.monthlyFreeFlow48)}</td><td class="pfv">-${W(sm.monthlyFreeFlow60)}</td></tr>
             <tr class="pf2hl"><td class="pfl">일반시장 진입 렌트료</td><td class="pfv">${W(sm.marketRent48)}</td><td class="pfv">${W(sm.marketRent60)}</td></tr>
@@ -950,7 +950,8 @@ function calcBreach() {
 
   // 손실금액 = (취득세+채권+서비스비용+조달이자 전체) × 남은비율
   const agencyForPeriod = period === 48 ? c.agency48 : c.agency60;
-  const totalCost = c.acqTax + c.bond + agencyForPeriod + c.fundInterest;
+  const fundInt = period === 48 ? c.fundInterest48 : c.fundInterest60;
+  const totalCost = c.acqTax + c.bond + agencyForPeriod + fundInt;
   const totalLoss = Math.round(totalCost * remainRatio);
 
   // 이미 회수한 이익 = 순이익(총) × 납입비율
@@ -973,7 +974,7 @@ function calcBreach() {
     <tr><td class="pfl">취득세 (비례)</td><td class="pfv">${W(Math.round(c.acqTax * remainRatio))}</td><td class="pfv">${W(c.acqTax)} × ${(remainRatio*100).toFixed(1)}%</td></tr>
     <tr><td class="pfl">채권 (비례)</td><td class="pfv">${W(Math.round(c.bond * remainRatio))}</td><td class="pfv">${W(c.bond)} × ${(remainRatio*100).toFixed(1)}%</td></tr>
     <tr><td class="pfl">서비스비용 (비례)</td><td class="pfv">${W(Math.round(agencyForPeriod * remainRatio))}</td><td class="pfv">${W(agencyForPeriod)} × ${(remainRatio*100).toFixed(1)}%</td></tr>
-    <tr><td class="pfl">조달이자 (비례)</td><td class="pfv">${W(Math.round(c.fundInterest * remainRatio))}</td><td class="pfv">${W(c.fundInterest)} × ${(remainRatio*100).toFixed(1)}%</td></tr>
+    <tr><td class="pfl">조달이자 (비례)</td><td class="pfv">${W(Math.round(fundInt * remainRatio))}</td><td class="pfv">${W(fundInt)} × ${(remainRatio*100).toFixed(1)}%</td></tr>
     <tr class="pf2hl"><td class="pfl">총 손실금액</td><td class="pfv">${W(totalLoss)}</td><td class="pfv"></td></tr>
 
     <tr class="pf2sec"><td colspan="3">이미 회수한 이익 (납입비율 ${(paidRatio*100).toFixed(1)}%)</td></tr>
