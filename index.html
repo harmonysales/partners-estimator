@@ -845,7 +845,8 @@ function renderProfit(r) {
             <tr><td class="pfl">공급가액 / 부가세</td><td class="pfv">${W(Math.round(c.monthlyLease48/1.1))} / ${W(c.monthlyLease48-Math.round(c.monthlyLease48/1.1))}</td><td class="pfv">${W(Math.round(c.monthlyLease60/1.1))} / ${W(c.monthlyLease60-Math.round(c.monthlyLease60/1.1))}</td></tr>
 
             <tr class="pf2sec"><td colspan="3">총 수익</td></tr>
-            <tr><td class="pfl">렌트료 수익 <span style="font-size:11px">(월대여료 ÷ 1.1 × 기간)</span></td><td class="pfv">${W(c.rentRevenue48)}</td><td class="pfv">${W(c.rentRevenue60)}</td></tr>
+            <tr><td class="pfl">렌트료 수익 <span style="font-size:11px">(실납입 ÷ 1.1 × 기간)</span></td><td class="pfv">${W(c.rentRevenue48)}</td><td class="pfv">${W(c.rentRevenue60)}</td></tr>
+            <tr><td class="pfl">선납금 <span style="font-size:11px">(선납금 ÷ 1.1)</span></td><td class="pfv">${W(c.prepaySupply48)}</td><td class="pfv">${W(c.prepaySupply60)}</td></tr>
             <tr><td class="pfl">잔존매각 <span style="font-size:11px">(보증금 ÷ 1.1)</span></td><td class="pfv">${W(c.residualSale48)}</td><td class="pfv">${W(c.residualSale60)}</td></tr>
             <tr class="pf2hl"><td class="pfl">총 수익 계</td><td class="pfv">${W(c.totalRevenue48)}</td><td class="pfv">${W(c.totalRevenue60)}</td></tr>
 
