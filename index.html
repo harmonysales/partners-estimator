@@ -496,9 +496,10 @@ function onSeries() {
 }
 function onLineup() {
   const bc = document.getElementById("s-brand").value;
-  const sc = document.getElementById("s-series").value;
+  const sv = document.getElementById("s-series").value;
+  const [sc, sn] = sv.split('||');
   const lc = document.getElementById("s-lineup").value;
-  const m = vehicles.find(v => v.브랜드코드===bc && v.시리즈코드===sc && v.라인업코드===lc);
+  const m = vehicles.find(v => v.브랜드코드===bc && v.시리즈코드===sc && v.시리즈명===sn && v.라인업코드===lc);
   if (m) { selV = m; fillDetail(m); } else { selV = null; clearDetail(); }
   updateBtn();
 }
