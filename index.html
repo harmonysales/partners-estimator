@@ -259,7 +259,7 @@ table.qt tr.qins td{background:#eef2fd;font-size:11px;color:#4a5578;}
               <div class="sl-labels"><span>0%</span><span>25%</span><span>50%</span></div>
             </div>
           </div>
-          <div class="ip-row" style="align-items:flex-start;margin-top:8px;">
+          <div class="ip-row" id="row-extrap" style="align-items:flex-start;margin-top:8px;">
             <label style="padding-top:2px;">추가 P</label>
             <div class="sl-wrap">
               <div class="sl-top">
@@ -425,12 +425,12 @@ async function doLogin() {
       method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({id:uid, password:pw})
     });
     const d = await r.json();
-    if (d.success) { token = d.token; sessionStorage.setItem("lt", token); showApp(); }
+    if (d.success) { token = d.token; sessionStorage.setItem("lt", token); sessionStorage.setItem("cep", d.canExtraP ? "1" : "0"); showApp(); }
     else err.textContent = d.message || "아이디 또는 비밀번호가 틀렸습니다.";
   } catch { err.textContent = "서버 연결 실패"; }
 }
 function doLogout() {
-  token = null; sessionStorage.removeItem("lt");
+  token = null; sessionStorage.removeItem("lt"); sessionStorage.removeItem("cep");
   document.getElementById("login-screen").style.display = "flex";
   document.getElementById("app").style.display = "none";
   document.getElementById("uid").value = "";
@@ -439,6 +439,9 @@ function doLogout() {
 async function showApp() {
   document.getElementById("login-screen").style.display = "none";
   document.getElementById("app").style.display = "flex";
+  const cep = sessionStorage.getItem("cep");
+  const epRow = document.getElementById("row-extrap");
+  if (epRow) epRow.style.display = (cep === "1") ? "" : "none";
   await loadVehicles();
 }
 async function loadVehicles() {
