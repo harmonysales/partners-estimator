@@ -367,14 +367,55 @@ async function doLogin() {
     else err.textContent = d.message || "아이디 또는 비밀번호가 틀렸습니다.";
   } catch { err.textContent = "서버 연결 실패"; }
 }
+function resetForm() {
+  // 전역 상태 초기화
+  vehicles = []; selV = null; depRate = 10; CR = null; pMode = "pct"; adminVars = null;
+  // 차량 선택 드롭다운 초기화
+  const sb = document.getElementById("s-brand");
+  if (sb) sb.innerHTML = '<option value="">선택</option>';
+  const ss = document.getElementById("s-series");
+  if (ss) { ss.innerHTML = '<option value="">선택</option>'; ss.disabled = true; }
+  const sl = document.getElementById("s-lineup");
+  if (sl) { sl.innerHTML = '<option value="">선택</option>'; sl.disabled = true; }
+  // 차량 상세정보 초기화
+  clearDetail();
+  // 입력 필드 초기화
+  ["i-regdate","i-mileage","i-price","i-sales","i-phone"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.value = ""; if (el._raw !== undefined) el._raw = ""; }
+  });
+  // 보증금율 → 기본 10%
+  document.querySelectorAll(".rbtn").forEach((b,i) => b.classList.toggle("on", i === 0));
+  // 선납금율 → 0%
+  const ps = document.getElementById("ps");
+  if (ps) ps.value = 0;
+  const pv = document.getElementById("pv");
+  if (pv) pv.textContent = "0";
+  // 추가P → 0%
+  const eps = document.getElementById("eps");
+  if (eps) eps.value = 0;
+  const epv = document.getElementById("epv");
+  if (epv) epv.textContent = "0";
+  const epNote = document.getElementById("ep-note");
+  if (epNote) epNote.textContent = "";
+  // 계산 버튼 비활성화
+  const cbtn = document.getElementById("cbtn");
+  if (cbtn) cbtn.disabled = true;
+  // 결과 영역 초기화
+  ["sum-init48","sum-monthly48","sum-res48"].forEach(id => { const el=document.getElementById(id); if(el) el.textContent="-"; });
+  const rt = document.getElementById("result-table");
+  if (rt) rt.innerHTML = "";
+}
 function doLogout() {
   token = null; sessionStorage.removeItem("lt"); sessionStorage.removeItem("cep");
+  resetForm();
   document.getElementById("login-screen").style.display = "flex";
   document.getElementById("app").style.display = "none";
   document.getElementById("uid").value = "";
   document.getElementById("pw").value = "";
 }
 async function showApp() {
+  resetForm();
   document.getElementById("login-screen").style.display = "none";
   document.getElementById("app").style.display = "flex";
   const cep = sessionStorage.getItem("cep");
